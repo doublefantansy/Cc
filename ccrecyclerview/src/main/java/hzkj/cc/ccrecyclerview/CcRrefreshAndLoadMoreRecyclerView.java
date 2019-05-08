@@ -74,6 +74,12 @@ public class CcRrefreshAndLoadMoreRecyclerView extends LinearLayout implements V
             }
         });
         addView(recyclerView);
+        adapter.setCallBack(new CallBack() {
+            @Override
+            public void callBack() {
+                adapter.showFooter(false);
+            }
+        });
     }
 
     public void refreshComplete(boolean isSuccess) {
@@ -86,7 +92,6 @@ public class CcRrefreshAndLoadMoreRecyclerView extends LinearLayout implements V
 
     public void loadComplete(boolean isEmpty) {
         isLoading = false;
-
         if (isEmpty) {
             adapter.smoothDown("暂无数据");
 //            adapter.smoothDown("加载成功");
@@ -151,7 +156,11 @@ public class CcRrefreshAndLoadMoreRecyclerView extends LinearLayout implements V
         return intercept;
     }
 
-    public  interface RefreshListenner {
+    public interface CallBack {
+        void callBack();
+    }
+
+    public interface RefreshListenner {
         void refresh();
     }
 

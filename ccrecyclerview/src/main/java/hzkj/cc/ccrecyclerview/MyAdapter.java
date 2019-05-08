@@ -1,5 +1,6 @@
 package hzkj.cc.ccrecyclerview;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -24,6 +25,12 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     ValueAnimator animator;
     int headerHeight;
     int footerHeight;
+   CcRrefreshAndLoadMoreRecyclerView.CallBack callBack;
+
+
+    public void setCallBack(CcRrefreshAndLoadMoreRecyclerView.CallBack callBack) {
+        this.callBack = callBack;
+    }
 
     public MyAdapter(RecyclerView.Adapter adapter, Context context) {
         // 初始化变量
@@ -63,6 +70,24 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         ViewGroup.LayoutParams layoutParams = footholder.itemView.getLayoutParams();
                         layoutParams.height = (int) animation.getAnimatedValue();
                         footholder.itemView.requestLayout();
+                    }
+                });
+                animator.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                             callBack.callBack();
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
                     }
                 });
                 animator.start();
