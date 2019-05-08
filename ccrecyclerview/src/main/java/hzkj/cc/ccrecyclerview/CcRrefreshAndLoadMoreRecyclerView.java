@@ -86,13 +86,14 @@ public class CcRrefreshAndLoadMoreRecyclerView extends LinearLayout implements V
 
     public void loadComplete(boolean isEmpty) {
         isLoading = false;
-        adapter.showFooter(false);
+
         if (isEmpty) {
             adapter.smoothDown("暂无数据");
 //            adapter.smoothDown("加载成功");
         } else {
             adapter.notifyDataSetChanged();
         }
+//        adapter.showFooter(false);
     }
 
     @Override

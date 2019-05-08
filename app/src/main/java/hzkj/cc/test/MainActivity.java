@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < 10; i++) {
                     list.add("" + i);
                 }
-                loadLayout.notify1();
+                loadLayout.update();
             }
         }, 3000);
         adapter = new TestAdapter(this, list);
@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        list.add("sd");
-                        loadLayout.loadComplete(false);
+//                        list.add("sd");
+                        loadLayout.loadComplete(true);
                     }
                 }, 3000);
             }
