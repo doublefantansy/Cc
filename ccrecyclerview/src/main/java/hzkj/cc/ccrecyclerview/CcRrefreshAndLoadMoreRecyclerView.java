@@ -150,7 +150,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends LinearLayout implements V
         return intercept;
     }
 
-    interface RefreshListenner {
+    public  interface RefreshListenner {
         void refresh();
     }
 
