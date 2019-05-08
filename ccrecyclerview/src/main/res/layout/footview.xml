@@ -13,7 +13,8 @@
             android:id="@+id/loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_jiazai_3" />
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_jiazai_5" />
 
         <TextView
             android:id="@+id/loadingText"

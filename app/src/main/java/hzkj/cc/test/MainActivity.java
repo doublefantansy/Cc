@@ -28,9 +28,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add("" + i);
-        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 10; i++) {
+                    list.add("" + i);
+                }
+                loadLayout.notify1();
+            }
+        }, 3000);
         adapter = new TestAdapter(this, list);
         loadLayout = findViewById(R.id.layout);
         loadLayout.init(adapter);

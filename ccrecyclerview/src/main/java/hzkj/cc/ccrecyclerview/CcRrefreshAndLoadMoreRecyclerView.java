@@ -51,6 +51,10 @@ public class CcRrefreshAndLoadMoreRecyclerView extends LinearLayout implements V
         initRecyclerView();
     }
 
+    public void update() {
+        adapter.notifyDataSetChanged();
+    }
+
     private void initRecyclerView() {
         setOrientation(VERTICAL);
         recyclerView = new RecyclerView(getContext());
@@ -117,8 +121,10 @@ public class CcRrefreshAndLoadMoreRecyclerView extends LinearLayout implements V
                     if (!isLoading & !isRefresh) {
                         Log.d("cctag", "in1");
                         if (moveY - downY < 0) {
-                            adapter.showFooter(true);
-                            loadMoreListenner.loadMore();
+                            if (loadMoreListenner != null) {
+                                adapter.showFooter(true);
+                                loadMoreListenner.loadMore();
+                            }
                             isLoading = true;
                         }
                     }
