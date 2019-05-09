@@ -90,16 +90,19 @@ public class CcRrefreshAndLoadMoreRecyclerView extends LinearLayout implements V
         adapter.showHeader(false, isSuccess);
     }
 
-    public void loadComplete(boolean isEmpty) {
+    public void loadComplete(boolean isEmpty, boolean isSuccess) {
         isLoading = false;
-        if (isEmpty) {
-            adapter.smoothDown("暂无数据");
+        if (isSuccess) {
+            if (isEmpty) {
+                adapter.smoothDown("已到最后");
 //            adapter.smoothDown("加载成功");
+            } else {
+                adapter.notifyDataSetChanged();
+                adapter.showFooter(false);
+            }
         } else {
-            adapter.notifyDataSetChanged();
-            adapter.showFooter(false);
+            adapter.smoothDown("加载失败");
         }
-
     }
 
     @Override
@@ -117,7 +120,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends LinearLayout implements V
                     isCanR = true;
                     canR = adapter.move((moveY - downY) / 3);
                     if (moveY - downY >= 0) {
-                        if (firstVisibleItem == 0) {
+                        if (firstVisibleItem == 1) {
                             return true;
                         }
                     }

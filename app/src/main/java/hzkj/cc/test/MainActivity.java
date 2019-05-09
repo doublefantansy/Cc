@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 loadLayout.update();
             }
-        }, 3000);
+        }, 0);
         adapter = new TestAdapter(this, list);
         loadLayout = findViewById(R.id.layout);
         loadLayout.init(adapter);
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
 //                        list.add("sd");
-                        loadLayout.loadComplete(true);
+                        loadLayout.loadComplete(true,false);
                     }
                 }, 3000);
             }

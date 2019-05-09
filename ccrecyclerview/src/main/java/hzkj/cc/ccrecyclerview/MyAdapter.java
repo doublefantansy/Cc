@@ -25,8 +25,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     ValueAnimator animator;
     int headerHeight;
     int footerHeight;
-   CcRrefreshAndLoadMoreRecyclerView.CallBack callBack;
-
+    CcRrefreshAndLoadMoreRecyclerView.CallBack callBack;
 
     public void setCallBack(CcRrefreshAndLoadMoreRecyclerView.CallBack callBack) {
         this.callBack = callBack;
@@ -79,7 +78,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                             callBack.callBack();
+                        callBack.callBack();
                     }
 
                     @Override
@@ -104,7 +103,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             headerHolder.text.setText(text);
             if (text.equals("刷新失败")) {
                 headerHolder.text.setTextColor(context.getResources()
-                        .getColor(R.color.myGray));
+                        .getColor(R.color.red));
             } else {
                 headerHolder.text.setTextColor(context.getResources()
                         .getColor(R.color.myBlue));
