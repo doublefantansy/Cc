@@ -97,8 +97,9 @@ public class CcRrefreshAndLoadMoreRecyclerView extends LinearLayout implements V
 //            adapter.smoothDown("加载成功");
         } else {
             adapter.notifyDataSetChanged();
+            adapter.showFooter(false);
         }
-//        adapter.showFooter(false);
+
     }
 
     @Override
