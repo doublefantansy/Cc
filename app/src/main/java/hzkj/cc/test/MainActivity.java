@@ -47,10 +47,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
 //                        list.add("sd");
-                        loadLayout.loadComplete(true,false);
+                        loadLayout.loadComplete(true, false);
                     }
                 }, 3000);
             }
         });
+//        loadLayout.showEmpty();
     }
 }
