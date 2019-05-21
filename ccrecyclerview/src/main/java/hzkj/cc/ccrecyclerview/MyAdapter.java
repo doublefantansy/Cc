@@ -165,9 +165,13 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             layout = itemView.findViewById(R.id.pullToRefreshPart);
             text = itemView.findViewById(R.id.pullToRefreshText);
             headerHeight = itemView.getLayoutParams().height;
+//            itemView.measure(ViewGroup.LayoutParams.WRAP_CONTENT,
+//                    ViewGroup.LayoutParams.WRAP_CONTENT);
+//            Log.e("cclsys", "mMeasuredHeight:" + itemView.getMeasuredHeightAndState());
             ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
             layoutParams.height = 0;
             itemView.setLayoutParams(layoutParams);
+
         }
     }
 
@@ -183,7 +187,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
         ViewGroup.LayoutParams layoutParams = headerHolder.itemView.getLayoutParams();
         layoutParams.height = (int) distance;
-        if (headerHolder.itemView.getHeight() >= headerHeight) {
+        if (headerHolder.itemView.getHeight() > headerHeight) {
             headerHolder.text.setText("释放可刷新");
             headerHolder.itemView.setLayoutParams(layoutParams);
             return true;
@@ -237,6 +241,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             footerAnimator.start();
         } else if (holder instanceof HeaderHolder) {
             headAnimator.start();
+            Log.d("ccllsy", headerHolder.itemView.getMeasuredHeight() + "");
         } else {
             adapter.onBindViewHolder(holder, position - 1);
         }
