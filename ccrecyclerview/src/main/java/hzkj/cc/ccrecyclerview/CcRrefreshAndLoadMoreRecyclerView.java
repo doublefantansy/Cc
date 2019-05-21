@@ -8,11 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
-import android.widget.LinearLayout;
 
-public class CcRrefreshAndLoadMoreRecyclerView extends LinearLayout implements View.OnTouchListener {
-    RecyclerView recyclerView;
+public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
+    //    RecyclerView recyclerView;
     RecyclerView.Adapter insideAdapter;
     float downY = 0;
     float moveY;
@@ -56,16 +54,14 @@ public class CcRrefreshAndLoadMoreRecyclerView extends LinearLayout implements V
     }
 
     private void initRecyclerView() {
-        setOrientation(VERTICAL);
-        recyclerView = new RecyclerView(getContext());
-        recyclerView.setAdapter(adapter);
+//        recyclerView = new RecyclerView(getContext());
+        this.setAdapter(adapter);
         layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setOnTouchListener(this);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        this.setLayoutManager(layoutManager);
+        this.setAdapter(adapter);
+        this.setItemAnimator(new DefaultItemAnimator());
+        this.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -73,7 +69,6 @@ public class CcRrefreshAndLoadMoreRecyclerView extends LinearLayout implements V
                 lastVisibleItem = layoutManager.findLastVisibleItemPosition();
             }
         });
-        addView(recyclerView);
         adapter.setCallBack(new CallBack() {
             @Override
             public void callBack() {
@@ -106,7 +101,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends LinearLayout implements V
     }
 
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
+    public boolean onTouchEvent(MotionEvent event) {
         boolean intercept = false;
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
@@ -118,11 +113,13 @@ public class CcRrefreshAndLoadMoreRecyclerView extends LinearLayout implements V
                 moveY = event.getRawY();
                 if (!isRefresh & !isLoading) {
                     isCanR = true;
-                    canR = adapter.move((moveY - downY) / 3);
+                    canR = adapter.move((moveY - downY) / 4);
                     if (moveY - downY >= 0) {
-                        if (firstVisibleItem == 1) {
+                        if (firstVisibleItem == 0) {
+//                            return false;
                             return true;
                         }
+                    } else {
                     }
                 } else {
                     isCanR = false;
@@ -139,11 +136,11 @@ public class CcRrefreshAndLoadMoreRecyclerView extends LinearLayout implements V
                         }
                     }
                 }
-                return false;
             }
             case MotionEvent.ACTION_UP: {
                 if (isCanR) {
                     if (canR) {
+                        smoothScrollToPosition(0);
                         adapter.showHeader(true, true);
                         isRefresh = true;
                         if (refreshListenner != null) {
@@ -157,7 +154,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends LinearLayout implements V
                 break;
             }
         }
-        return intercept;
+        return super.onTouchEvent(event);
     }
 
     public interface CallBack {
