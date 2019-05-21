@@ -106,6 +106,8 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
                 downY = event.getRawY();
+                moveY = 0;
+                canR = false;
                 intercept = false;
                 break;
             }
@@ -119,8 +121,6 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
 //                            return false;
                             return true;
                         }
-                    } else {
-                        canR = false;
                     }
                 } else {
                     isCanR = false;
@@ -137,6 +137,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                         }
                     }
                 }
+                break;
             }
             case MotionEvent.ACTION_UP: {
                 if (isCanR) {
