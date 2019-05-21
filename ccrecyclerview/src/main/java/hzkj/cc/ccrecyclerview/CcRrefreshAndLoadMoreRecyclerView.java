@@ -120,6 +120,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                             return true;
                         }
                     } else {
+                        canR = false;
                     }
                 } else {
                     isCanR = false;
