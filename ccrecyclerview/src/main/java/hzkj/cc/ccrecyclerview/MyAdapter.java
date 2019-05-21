@@ -205,7 +205,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public FootHolder(View itemView) {
             super(itemView);
             tips = itemView.findViewById(R.id.loading);
-            loadingText = itemView.findViewById(R.id.loadingText);
+            loadingText = itemView.findViewById(R.id.message);
             footerHeight = itemView.getLayoutParams().height;
             ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
             layoutParams.height = 0;
