@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 
 public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
     //    RecyclerView recyclerView;
@@ -26,6 +27,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
     int lastVisibleItem;
     RefreshListenner refreshListenner;
     LoadMoreListenner loadMoreListenner;
+    private float upY;
 
     public void setRefreshListenner(RefreshListenner refreshListenner) {
         this.refreshListenner = refreshListenner;
@@ -43,7 +45,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
         super(context, attrs);
     }
 
-    public void init(RecyclerView.Adapter insideAdapter) {
+    public void init(BaseAdapter insideAdapter) {
         this.insideAdapter = insideAdapter;
         adapter = new MyAdapter(insideAdapter, getContext());
         initRecyclerView();
@@ -140,6 +142,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 break;
             }
             case MotionEvent.ACTION_UP: {
+                upY = event.getRawY();
                 if (isCanR) {
                     if (canR) {
                         smoothScrollToPosition(0);
@@ -149,8 +152,14 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                             refreshListenner.refresh();
                         }
                     } else {
-                        isRefresh = false;
-                        adapter.smoothUp(true, null);
+                        if (upY == downY) {
+                            View childView = findChildViewUnder(event.getX(), event.getY());
+                            int position = layoutManager.getPosition(childView);
+                            adapter.click(position);
+                        } else {
+                            isRefresh = false;
+                            adapter.smoothUp(true, null);
+                        }
                     }
                 }
                 break;
