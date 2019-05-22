@@ -7,10 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
-public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
+public class TestAdapter extends hzkj.cc.ccrecyclerview.BaseAdapter<TestAdapter.ViewHolder> {
     Context context;
     private List<String> datas; // 数据源
 
@@ -36,6 +37,11 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
         return datas.size();
     }
 
+    @Override
+    public void click(int position) {
+        Toast.makeText(context, position + "", Toast.LENGTH_SHORT)
+                .show();
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tv;

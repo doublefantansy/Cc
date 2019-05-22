@@ -17,7 +17,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     public static int HEADERTYPE = -1;
     public static int FOOTTYPE = 1;
-    RecyclerView.Adapter adapter;
+    BaseAdapter adapter;
     FootHolder footholder;
     HeaderHolder headerHolder;
     ObjectAnimator footerAnimator;
@@ -31,10 +31,17 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.callBack = callBack;
     }
 
-    public MyAdapter(RecyclerView.Adapter adapter, Context context) {
+    public MyAdapter(BaseAdapter adapter, Context context) {
         // 初始化变量
         this.adapter = adapter;
         this.context = context;
+    }
+
+    void click(int p) {
+        if (p == 0 | p == getItemCount() - 1) {
+            return;
+        }
+        adapter.click(p - 1);
     }
 
     @Override
@@ -171,7 +178,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
             layoutParams.height = 0;
             itemView.setLayoutParams(layoutParams);
-
         }
     }
 
