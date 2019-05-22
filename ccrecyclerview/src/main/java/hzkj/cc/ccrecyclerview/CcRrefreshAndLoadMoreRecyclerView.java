@@ -21,6 +21,8 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
     boolean isLoading = false;
     boolean canR;
     boolean canL;
+    boolean refreshEnable = true;
+    boolean loadMoreEnable = true;
     boolean isCanR = true;
     //    boolean canLoad;
     int firstVisibleItem;
@@ -28,6 +30,14 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
     RefreshListenner refreshListenner;
     LoadMoreListenner loadMoreListenner;
     private float upY;
+
+    public void setRefreshEnable(boolean refreshEnable) {
+        this.refreshEnable = refreshEnable;
+    }
+
+    public void setLoadMoreEnable(boolean loadMoreEnable) {
+        this.loadMoreEnable = loadMoreEnable;
+    }
 
     public void setRefreshListenner(RefreshListenner refreshListenner) {
         this.refreshListenner = refreshListenner;
@@ -115,7 +125,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
             }
             case MotionEvent.ACTION_MOVE: {
                 moveY = event.getRawY();
-                if (!isRefresh & !isLoading) {
+                if (!isRefresh & !isLoading & refreshEnable) {
                     isCanR = true;
                     canR = adapter.move((moveY - downY) / 4);
                     if (moveY - downY > 10) {
@@ -128,7 +138,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                     isCanR = false;
                 }
                 if (lastVisibleItem == insideAdapter.getItemCount()) {
-                    if (!isLoading & !isRefresh) {
+                    if (!isLoading & !isRefresh & loadMoreEnable) {
                         Log.d("cctag", "in1");
                         if (moveY - downY < 0) {
                             if (loadMoreListenner != null) {
