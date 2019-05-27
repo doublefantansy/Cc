@@ -146,8 +146,8 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                             if (loadMoreListenner != null) {
                                 adapter.showFooter(true);
                                 loadMoreListenner.loadMore();
+                                isLoading = true;
                             }
-                            isLoading = true;
                         }
                     }
                 }
