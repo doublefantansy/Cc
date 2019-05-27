@@ -89,12 +89,14 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
         });
     }
 
-    public void refreshComplete(boolean isSuccess) {
+    public void refreshComplete(boolean isSuccess, boolean isFirst) {
         isRefresh = false;
         if (isSuccess) {
             adapter.notifyDataSetChanged();
         }
-        adapter.showHeader(false, isSuccess);
+        if (!isFirst) {
+            adapter.showHeader(false, isSuccess);
+        }
     }
 
     public void loadComplete(boolean isEmpty, boolean isSuccess) {
