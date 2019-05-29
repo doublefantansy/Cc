@@ -148,6 +148,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void showFooter(boolean b) {
+
         footholder.loadingText.setTextColor(context.getResources()
                 .getColor(R.color.myGray));
         footholder.tips.setVisibility(View.VISIBLE);
@@ -172,9 +173,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             layout = itemView.findViewById(R.id.pullToRefreshPart);
             text = itemView.findViewById(R.id.pullToRefreshText);
             headerHeight = itemView.getLayoutParams().height;
-//            itemView.measure(ViewGroup.LayoutParams.WRAP_CONTENT,
-//                    ViewGroup.LayoutParams.WRAP_CONTENT);
-//            Log.e("cclsys", "mMeasuredHeight:" + itemView.getMeasuredHeightAndState());
             ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
             layoutParams.height = 0;
             itemView.setLayoutParams(layoutParams);
