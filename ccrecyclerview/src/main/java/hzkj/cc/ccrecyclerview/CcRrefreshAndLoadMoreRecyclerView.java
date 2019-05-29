@@ -164,15 +164,14 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                             refreshListenner.refresh();
                         }
                     } else {
-                        if (upY == downY) {
-                            View childView = findChildViewUnder(event.getX(), event.getY());
-                            int position = layoutManager.getPosition(childView);
-                            adapter.click(position);
-                        } else {
-                            isRefresh = false;
-                            adapter.smoothUp(true, null);
-                        }
+                        isRefresh = false;
+                        adapter.smoothUp(true, null);
                     }
+                }
+                if (upY == downY) {
+                    View childView = findChildViewUnder(event.getX(), event.getY());
+                    int position = layoutManager.getPosition(childView);
+                    adapter.click(position);
                 }
                 break;
             }
