@@ -78,7 +78,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 firstVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition();
-                lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
+                lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition()-1;
             }
         });
         adapter.setCallBack(new CallBack() {
