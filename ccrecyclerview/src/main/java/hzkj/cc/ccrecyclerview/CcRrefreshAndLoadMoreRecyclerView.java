@@ -180,8 +180,10 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 }
                 if (upY == downY) {
                     View childView = findChildViewUnder(event.getX(), event.getY());
-                    int position = layoutManager.getPosition(childView);
-                    adapter.click(position);
+                    if (childView != null) {
+                        int position = layoutManager.getPosition(childView);
+                        adapter.click(position);
+                    }
                 }
                 break;
             }
