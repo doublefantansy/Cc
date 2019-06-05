@@ -46,7 +46,9 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (p == 0 | p == getItemCount() - 1) {
             return;
         }
-        itemListenner.click(p - 1);
+        if (itemListenner != null) {
+            itemListenner.click(p - 1);
+        }
     }
 
     @Override
