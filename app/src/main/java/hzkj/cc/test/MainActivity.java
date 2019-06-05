@@ -5,11 +5,13 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import hzkj.cc.ccrecyclerview.CcRrefreshAndLoadMoreRecyclerView;
+import hzkj.cc.ccrecyclerview.ClickItemListenner;
 
 public class MainActivity extends AppCompatActivity {
     CcRrefreshAndLoadMoreRecyclerView loadLayout;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < 15; i++) {
                     list.add("" + i);
                 }
                 loadLayout.update();
@@ -40,14 +42,21 @@ public class MainActivity extends AppCompatActivity {
         adapter = new TestAdapter(this, list);
         loadLayout = findViewById(R.id.layout);
         loadLayout.init(adapter);
-        loadLayout.setLoadMoreListenner(new CcRrefreshAndLoadMoreRecyclerView.LoadMoreListenner() {
+        loadLayout.setClickItemListenner(new ClickItemListenner() {
             @Override
-            public void loadMore() {
+            public void click(int position) {
+                Toast.makeText(MainActivity.this, position + "", Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
+        loadLayout.setRefreshListenner(new CcRrefreshAndLoadMoreRecyclerView.RefreshListenner() {
+            @Override
+            public void refresh() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
 //                        list.add("sd");
-                        loadLayout.loadComplete(true, false);
+                        loadLayout.refreshComplete(true, false);
                     }
                 }, 3000);
             }

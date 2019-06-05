@@ -26,6 +26,11 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     int headerHeight;
     int footerHeight;
     CcRrefreshAndLoadMoreRecyclerView.CallBack callBack;
+    ClickItemListenner itemListenner;
+
+    public void setItemListenner(ClickItemListenner itemListenner) {
+        this.itemListenner = itemListenner;
+    }
 
     public void setCallBack(CcRrefreshAndLoadMoreRecyclerView.CallBack callBack) {
         this.callBack = callBack;
@@ -41,7 +46,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (p == 0 | p == getItemCount() - 1) {
             return;
         }
-        adapter.click(p - 1);
+        itemListenner.click(p - 1);
     }
 
     @Override
@@ -148,7 +153,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void showFooter(boolean b) {
-
         footholder.loadingText.setTextColor(context.getResources()
                 .getColor(R.color.myGray));
         footholder.tips.setVisibility(View.VISIBLE);
@@ -173,6 +177,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             layout = itemView.findViewById(R.id.pullToRefreshPart);
             text = itemView.findViewById(R.id.pullToRefreshText);
             headerHeight = itemView.getLayoutParams().height;
+//
             ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
             layoutParams.height = 0;
             itemView.setLayoutParams(layoutParams);

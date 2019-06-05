@@ -31,6 +31,13 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
     RefreshListenner refreshListenner;
     LoadMoreListenner loadMoreListenner;
     private float upY;
+    float temp;
+    ClickItemListenner listenner;
+
+    public void setClickItemListenner(ClickItemListenner listenner) {
+        this.listenner = listenner;
+        adapter.setItemListenner(listenner);
+    }
 
     public void setRefreshEnable(boolean refreshEnable) {
         this.refreshEnable = refreshEnable;
@@ -81,7 +88,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 firstVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition();
                 lastVisibleItem = layoutManager.findLastVisibleItemPosition();
                 lastCompleteVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
-                Log.d("ccnb11111", lastVisibleItem + "");
+                Log.d("ccnb11111", firstVisibleItem + "");
             }
         });
         adapter.setCallBack(new CallBack() {
@@ -135,10 +142,10 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                     canR = adapter.move((moveY - downY) / 4);
                     if (moveY - downY > 10) {
                         if (firstVisibleItem == 0) {
-//                            return false;
                             return true;
                         }
                     }
+//                    return true;
                 } else {
                     isCanR = false;
                 }
