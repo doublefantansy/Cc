@@ -81,7 +81,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 firstVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition();
                 lastVisibleItem = layoutManager.findLastVisibleItemPosition();
                 lastCompleteVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
-                Log.d("ccnb11111", lastCompleteVisibleItem + "");
+                Log.d("ccnb11111", lastVisibleItem + "");
             }
         });
         adapter.setCallBack(new CallBack() {
@@ -142,7 +142,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 } else {
                     isCanR = false;
                 }
-                if (lastCompleteVisibleItem == insideAdapter.getItemCount() | lastCompleteVisibleItem == insideAdapter.getItemCount() + 1) {
+                if (lastVisibleItem == insideAdapter.getItemCount() & adapter.footholder != null) {
                     if (!isLoading & !isRefresh & loadMoreEnable) {
                         Log.d("cctag", "in1");
                         if (moveY - downY < 0) {
