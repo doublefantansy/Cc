@@ -124,16 +124,17 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
             delay = 1000;
         }
+        final RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) headerHolder.itemView.getLayoutParams();
+
         new android.os.Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                ValueAnimator animator = ValueAnimator.ofInt(headerHolder.itemView.getHeight(), toTop ? 0 : headerHeight);
+                ValueAnimator animator = ValueAnimator.ofInt(layoutParams.topMargin, toTop ? -headerHeight : 0);
                 animator.setDuration(200);
                 animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {
-                        ViewGroup.LayoutParams layoutParams = headerHolder.itemView.getLayoutParams();
-                        layoutParams.height = (int) animation.getAnimatedValue();
+                        layoutParams.topMargin = (int) animation.getAnimatedValue();
                         headerHolder.itemView.requestLayout();
                     }
                 });
@@ -180,8 +181,8 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             text = itemView.findViewById(R.id.pullToRefreshText);
             headerHeight = itemView.getLayoutParams().height;
 //
-            ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
-            layoutParams.height = 0;
+            RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) itemView.getLayoutParams();
+            layoutParams.topMargin = -headerHeight;
             itemView.setLayoutParams(layoutParams);
         }
     }
@@ -196,9 +197,9 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (distance < 0) {
             return false;
         }
-        ViewGroup.LayoutParams layoutParams = headerHolder.itemView.getLayoutParams();
-        layoutParams.height = (int) distance;
-        if (headerHolder.itemView.getHeight() > headerHeight) {
+        RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) headerHolder.itemView.getLayoutParams();
+        layoutParams.topMargin = (int) distance - headerHeight;
+        if (layoutParams.topMargin  > 0) {
             headerHolder.text.setText("释放可刷新");
             headerHolder.itemView.setLayoutParams(layoutParams);
             return true;
