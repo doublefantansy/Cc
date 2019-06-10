@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
                         .show();
             }
         });
-        loadLayout.setLoadMoreListenner(new CcRrefreshAndLoadMoreRecyclerView.LoadMoreListenner() {
+        loadLayout.setRefreshListenner(new CcRrefreshAndLoadMoreRecyclerView.RefreshListenner() {
             @Override
-            public void loadMore() {
+            public void refresh() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
