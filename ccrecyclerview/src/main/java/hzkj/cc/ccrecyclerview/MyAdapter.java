@@ -125,7 +125,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             delay = 1000;
         }
         final RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) headerHolder.itemView.getLayoutParams();
-
         new android.os.Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -187,19 +186,19 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    public boolean move(float distance) {
-        headerHolder.text.setTextColor(context.getResources()
-                .getColor(R.color.myGray));
-        headerHolder.loading.setVisibility(View.GONE);
-        ((RelativeLayout.LayoutParams) headerHolder.layout.getLayoutParams()).removeRule(RelativeLayout.CENTER_IN_PARENT);
-        ((RelativeLayout.LayoutParams) headerHolder.layout.getLayoutParams()).addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        headerHolder.text.setText("下拉可刷新");
-        if (distance < 0) {
-            return false;
+            public boolean move(float distance) {
+                headerHolder.text.setTextColor(context.getResources()
+                        .getColor(R.color.myGray));
+                headerHolder.loading.setVisibility(View.GONE);
+                ((RelativeLayout.LayoutParams) headerHolder.layout.getLayoutParams()).removeRule(RelativeLayout.CENTER_IN_PARENT);
+                ((RelativeLayout.LayoutParams) headerHolder.layout.getLayoutParams()).addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                headerHolder.text.setText("下拉可刷新");
+                if (distance < 0) {
+                    return false;
         }
         RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) headerHolder.itemView.getLayoutParams();
         layoutParams.topMargin = (int) distance - headerHeight;
-        if (layoutParams.topMargin  > 0) {
+        if (layoutParams.topMargin > 0) {
             headerHolder.text.setText("释放可刷新");
             headerHolder.itemView.setLayoutParams(layoutParams);
             return true;

@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < 13; i++) {
                     list.add("" + i);
                 }
                 loadLayout.update();
@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
                         .show();
             }
         });
-        loadLayout.setRefreshListenner(new CcRrefreshAndLoadMoreRecyclerView.RefreshListenner() {
+        loadLayout.setLoadMoreListenner(new CcRrefreshAndLoadMoreRecyclerView.LoadMoreListenner() {
             @Override
-            public void refresh() {
+            public void loadMore() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
