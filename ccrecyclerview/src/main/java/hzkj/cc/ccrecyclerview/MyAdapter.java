@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -135,10 +136,11 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     public void onAnimationUpdate(ValueAnimator animation) {
                         Log.d("lsy1", (int) animation.getAnimatedValue() + "");
                         headerHolder.itemView.setPadding(headerHolder.itemView.getPaddingLeft(), (int) animation.getAnimatedValue(), headerHolder.itemView.getPaddingRight(), headerHolder.itemView.getPaddingBottom());
-//                        headerHolder.itemView.invalidate();
+                        headerHolder.itemView.invalidate();
                     }
                 });
                 animator.start();
+//                Log.d("ccnb11211",headerHolder.itemView.getPaddingTop() + "");
             }
         }, delay);
     }
@@ -153,6 +155,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else {
             smoothUp(true, isSuccess ? "刷新成功" : "刷新失败");
         }
+//        Log.d("lsyssd", headerHolder.itemView.getPaddingTop() + "");
     }
 
     public void showFooter(boolean b) {
@@ -179,35 +182,17 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             loading = itemView.findViewById(R.id.loading);
             layout = itemView.findViewById(R.id.pullToRefreshPart);
             text = itemView.findViewById(R.id.pullToRefreshText);
-            measureView(itemView);
+            itemView.measure(0, 0);
             headerHeight = itemView.getMeasuredHeight();
-//
+
 //            RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) itemView.getLayoutParams();
 //            layoutParams.topMargin = -headerHeight;
             itemView.setPadding(itemView.getPaddingLeft(), -headerHeight,
                     itemView.getPaddingRight(), itemView.getPaddingBottom());
+            Log.d("ccnb1111",itemView.getPaddingTop() + "");
 //            itemView.invalidate();
 //            itemView.setLayoutParams(layoutParams);
         }
-    }
-
-    private void measureView(View view) {
-        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-        if (layoutParams == null) {
-            layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-        }
-        int width = ViewGroup.getChildMeasureSpec(0, 0, layoutParams.width);
-        int height;
-        int tempHeight = layoutParams.height;
-        if (tempHeight > 0) {
-            // 高度不是0的时候，要填充
-            height = View.MeasureSpec.makeMeasureSpec(tempHeight, View.MeasureSpec.EXACTLY);
-        } else {
-            // 高度是0的时候不要填充
-            height = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        }
-        view.measure(width, height);
     }
 
     public boolean move(float distance) {
@@ -222,7 +207,9 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 //        RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) headerHolder.itemView.getLayoutParams();
 //        layoutParams.topMargin = (int) distance - headerHeight;
+//        headerHolder.itemView.measure(0, 0);
         headerHolder.itemView.setPadding(headerHolder.itemView.getPaddingLeft(), (int) distance - headerHeight, headerHolder.itemView.getPaddingRight(), headerHolder.itemView.getPaddingBottom());
+
         if (headerHolder.itemView.getPaddingTop() > 0) {
             headerHolder.text.setText("释放可刷新");
 //            headerHolder.itemView.setLayoutParams(layoutParams);

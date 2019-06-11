@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < 13; i++) {
                     list.add("" + i);
                 }
                 loadLayout.update();

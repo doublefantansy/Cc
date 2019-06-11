@@ -34,6 +34,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
     float temp;
     ClickItemListenner listenner;
     private boolean first = true;
+    private boolean isMove;
 
     public void setClickItemListenner(ClickItemListenner listenner) {
         this.listenner = listenner;
@@ -89,7 +90,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
                 lastVisibleItem = layoutManager.findLastVisibleItemPosition();
                 lastCompleteVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
-                Log.d("ccnb11111", firstVisibleItem + "");
+                Log.d("ccnb11111", firstVisibleItem + "|" + layoutManager.findFirstCompletelyVisibleItemPosition());
             }
         });
         adapter.setCallBack(new CallBack() {
@@ -138,10 +139,13 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
             }
             case MotionEvent.ACTION_MOVE: {
                 moveY = event.getRawY();
+                View childView = findChildViewUnder(0, 0);
+                int position = layoutManager.getPosition(childView);
+                Log.d("lsylsy", position + "");
                 if (!isRefresh & !isLoading & refreshEnable) {
                     isCanR = true;
                     canR = adapter.move((moveY - downY) / 4);
-                    if (firstVisibleItem == 0) {
+                    if (firstVisibleItem == 0 & position == 0) {
                         return true;
                     }
                 } else {
@@ -165,7 +169,6 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 upY = event.getRawY();
                 if (isCanR) {
                     if (canR) {
-                        smoothScrollToPosition(0);
                         adapter.showHeader(true, true);
                         isRefresh = true;
                         if (refreshListenner != null) {
@@ -186,8 +189,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 break;
             }
         }
-        return super.onTouchEvent(event)
-                ;
+        return super.onTouchEvent(event);
     }
 
     public interface CallBack {
