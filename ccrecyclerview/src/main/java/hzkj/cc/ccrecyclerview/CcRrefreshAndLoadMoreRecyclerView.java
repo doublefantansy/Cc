@@ -141,13 +141,8 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 if (!isRefresh & !isLoading & refreshEnable) {
                     isCanR = true;
                     canR = adapter.move((moveY - downY) / 4);
-                    if (canR) {
-                        smoothScrollToPosition(0);
-                        adapter.showHeader(true, true);
-                        isRefresh = true;
-                        if (refreshListenner != null) {
-                            refreshListenner.refresh();
-                        }
+                    if (firstVisibleItem == 0) {
+                        return true;
                     }
                 } else {
                     isCanR = false;
