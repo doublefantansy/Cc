@@ -184,12 +184,11 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             text = itemView.findViewById(R.id.pullToRefreshText);
             itemView.measure(0, 0);
             headerHeight = itemView.getMeasuredHeight();
-
 //            RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) itemView.getLayoutParams();
 //            layoutParams.topMargin = -headerHeight;
             itemView.setPadding(itemView.getPaddingLeft(), -headerHeight,
                     itemView.getPaddingRight(), itemView.getPaddingBottom());
-            Log.d("ccnb1111",itemView.getPaddingTop() + "");
+            Log.d("ccnb1111", itemView.getPaddingTop() + "");
 //            itemView.invalidate();
 //            itemView.setLayoutParams(layoutParams);
         }
@@ -205,11 +204,12 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (distance < 0) {
             return false;
         }
+//        Log.d("lsyssd", headerHolder.itemView.getPaddingTop() + "");
 //        RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) headerHolder.itemView.getLayoutParams();
 //        layoutParams.topMargin = (int) distance - headerHeight;
 //        headerHolder.itemView.measure(0, 0);
         headerHolder.itemView.setPadding(headerHolder.itemView.getPaddingLeft(), (int) distance - headerHeight, headerHolder.itemView.getPaddingRight(), headerHolder.itemView.getPaddingBottom());
-
+        Log.d("lsyssd", headerHolder.itemView.getPaddingTop() + "");
         if (headerHolder.itemView.getPaddingTop() > 0) {
             headerHolder.text.setText("释放可刷新");
 //            headerHolder.itemView.setLayoutParams(layoutParams);
