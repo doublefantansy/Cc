@@ -60,5 +60,18 @@ public class MainActivity extends AppCompatActivity {
                 }, 3000);
             }
         });
+        loadLayout.setLoadMoreListenner(new CcRrefreshAndLoadMoreRecyclerView.LoadMoreListenner() {
+            @Override
+            public void loadMore() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadLayout.loadComplete(false,true);
+                        list.add("" + i);
+                    }
+                }, 3000);
+
+            }
+        });
     }
 }
