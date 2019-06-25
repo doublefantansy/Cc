@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
     //    RecyclerView recyclerView;
@@ -104,6 +105,9 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
     public void refreshComplete(boolean isSuccess, boolean isFirst) {
         isRefresh = false;
         if (isSuccess) {
+            Toast.makeText(getContext(), "刷新成功", Toast.LENGTH_SHORT)
+                    .show();
+            smoothScrollToPosition(0);
             adapter.notifyDataSetChanged();
         }
         if (!isFirst) {
