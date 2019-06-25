@@ -104,14 +104,15 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
 
     public void refreshComplete(boolean isSuccess, boolean isFirst) {
         isRefresh = false;
+        smoothScrollToPosition(0);
         if (isSuccess) {
-            Toast.makeText(getContext(), "刷新成功", Toast.LENGTH_SHORT)
-                    .show();
-            smoothScrollToPosition(0);
             adapter.notifyDataSetChanged();
         }
         if (!isFirst) {
             adapter.showHeader(false, isSuccess);
+        } else {
+            Toast.makeText(getContext(), "刷新成功", Toast.LENGTH_SHORT)
+                    .show();
         }
     }
 
