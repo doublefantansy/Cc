@@ -141,7 +141,10 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 moveY = event.getRawY();
                 if (!isRefresh & !isLoading & refreshEnable) {
                     isCanR = true;
-                    canR = adapter.move((moveY - downY) / 4);
+                    if (layoutManager.findFirstCompletelyVisibleItemPosition() == 0) {
+                        canR = adapter.move((moveY - downY) / 4);
+                    }
+                    Log.d("ccnb11111111", adapter.headerHolder.itemView.getPaddingTop() + "");
                     if (adapter.headerHolder.itemView.getPaddingTop() > -adapter.headerHeight) {
                         isMove = true;
                     } else {
