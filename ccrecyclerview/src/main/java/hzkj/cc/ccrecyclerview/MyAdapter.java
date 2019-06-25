@@ -205,9 +205,9 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return false;
         }
 //        Log.d("lsyssd", headerHolder.itemView.getPaddingTop() + "");
-//        RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) headerHolder.itemView.getLayoutParams();
-//        layoutParams.topMargin = (int) distance - headerHeight;
-//        headerHolder.itemView.measure(0, 0);
+////        RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) headerHolder.itemView.getLayoutParams();
+////        layoutParams.topMargin = (int) distance - headerHeight;
+////        headerHolder.itemView.measure(0, 0);
         headerHolder.itemView.setPadding(headerHolder.itemView.getPaddingLeft(), (int) distance - headerHeight, headerHolder.itemView.getPaddingRight(), headerHolder.itemView.getPaddingBottom());
         Log.d("lsyssd", headerHolder.itemView.getPaddingTop() + "");
         if (headerHolder.itemView.getPaddingTop() > 0) {

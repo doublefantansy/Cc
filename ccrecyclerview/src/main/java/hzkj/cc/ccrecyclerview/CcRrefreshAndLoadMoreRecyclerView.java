@@ -141,7 +141,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 moveY = event.getRawY();
                 if (!isRefresh & !isLoading & refreshEnable) {
                     isCanR = true;
-                    if (layoutManager.findFirstCompletelyVisibleItemPosition() == 0 | (layoutManager.findFirstCompletelyVisibleItemPosition() == 1 & firstVisibleItem == 0)) {
+                    if (firstVisibleItem == 1 | firstVisibleItem == 0) {
                         canR = adapter.move((moveY - downY) / 4);
                     } else {
                         canR = false;
