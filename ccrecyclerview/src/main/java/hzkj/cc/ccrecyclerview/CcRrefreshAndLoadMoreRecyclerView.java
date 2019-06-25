@@ -110,8 +110,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
         }
         if (!isFirst) {
             adapter.showHeader(false, isSuccess);
-        } else {
-            Toast.makeText(getContext(), "刷新成功", Toast.LENGTH_SHORT)
+            Toast.makeText(getContext(), "刷新完成", Toast.LENGTH_SHORT)
                     .show();
         }
     }
