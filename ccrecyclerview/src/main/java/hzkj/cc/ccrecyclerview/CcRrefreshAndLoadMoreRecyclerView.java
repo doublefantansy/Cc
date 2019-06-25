@@ -143,8 +143,10 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                     isCanR = true;
                     if (layoutManager.findFirstCompletelyVisibleItemPosition() == 0) {
                         canR = adapter.move((moveY - downY) / 4);
+                    } else {
+                        canR = false;
                     }
-                    Log.d("ccnb11111111", adapter.headerHolder.itemView.getPaddingTop() + "");
+//                    Log.d("ccnb11111111", adapter.headerHolder.itemView.getPaddingTop() + "");
                     if (adapter.headerHolder.itemView.getPaddingTop() > -adapter.headerHeight) {
                         isMove = true;
                     } else {

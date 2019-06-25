@@ -66,14 +66,14 @@ public class MainActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        loadLayout.loadComplete(true,true);
-//                        list.add("" + i);
-//                        list.add("" + i);
-//                        list.add("" + i);
-//                        list.add("" + i);
-//                        list.add("" + i);
-//                        list.add("" + i);
-//                        list.add("" + i);
+                        loadLayout.loadComplete(false,true);
+                        list.add("" + i);
+                        list.add("" + i);
+                        list.add("" + i);
+                        list.add("" + i);
+                        list.add("" + i);
+                        list.add("" + i);
+                        list.add("" + i);
 
                     }
                 }, 3000);
