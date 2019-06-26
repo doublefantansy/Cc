@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 23; i++) {
+                for (int i = 0; i < 12; i++) {
                     list.add("" + i);
                 }
                 loadLayout.update();
@@ -66,17 +66,17 @@ public class MainActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        loadLayout.loadComplete(false,true);
-                        list.add("" + i);
-                        list.add("" + i);
-                        list.add("" + i);
-                        list.add("" + i);
-                        list.add("" + i);
-                        list.add("" + i);
-                        list.add("" + i);
+                        loadLayout.loadComplete(true,true);
+//                        list.add("" + i);
+//                        list.add("" + i);
+//                        list.add("" + i);
+//                        list.add("" + i);
+//                        list.add("" + i);
+//                        list.add("" + i);
+//                        list.add("" + i);
 
                     }
-                }, 3000);
+                }, 1000);
 
             }
         });

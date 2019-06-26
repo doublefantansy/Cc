@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class TestAdapter extends hzkj.cc.ccrecyclerview.BaseAdapter<TestAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tv.setText(datas.get(position));
+
     }
 
     @Override
@@ -39,11 +38,9 @@ public class TestAdapter extends hzkj.cc.ccrecyclerview.BaseAdapter<TestAdapter.
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tv = (TextView) itemView.findViewById(R.id.tv);
         }
     }
 }
