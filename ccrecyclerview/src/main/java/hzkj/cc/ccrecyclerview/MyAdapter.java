@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +23,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     ObjectAnimator footerAnimator;
     ObjectAnimator headAnimator;
     ValueAnimator animator;
+    boolean isEnd;
     int headerHeight;
     int footerHeight;
     CcRrefreshAndLoadMoreRecyclerView.CallBack callBack;
@@ -69,44 +69,54 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     void smoothDown(String text) {
-        footholder.tips.setVisibility(View.GONE);
-        footholder.loadingText.setText(text);
-        footholder.loadingText.setTextColor(context.getResources()
-                .getColor(R.color.red));
-        new android.os.Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ValueAnimator animator = ValueAnimator.ofInt(footholder.itemView.getHeight(), 0);
-                animator.setDuration(200);
-                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        ViewGroup.LayoutParams layoutParams = footholder.itemView.getLayoutParams();
-                        layoutParams.height = (int) animation.getAnimatedValue();
-                        footholder.itemView.requestLayout();
-                    }
-                });
-                animator.addListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                    }
+        if (text.equals("")) {
+            isEnd = true;
+            footholder.tips.setVisibility(View.GONE);
+            footholder.loadingText.setText("已经全部加载完毕");
+//            footholder.loadingText.setTextColor(context.getResources()
+//                    .getColor(R.color.red));
+        } else {
+            footholder.tips.setVisibility(View.GONE);
+            footholder.loadingText.setText(text);
+            new android.os.Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ValueAnimator animator = ValueAnimator.ofInt(footholder.itemView.getHeight(), 0);
+                    animator.setDuration(500);
+                    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator animation) {
+                            ViewGroup.LayoutParams layoutParams = footholder.itemView.getLayoutParams();
+                            layoutParams.height = (int) animation.getAnimatedValue();
+                            footholder.itemView.setLayoutParams(layoutParams);
+                        }
+                    });
+                    animator.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                        }
 
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        callBack.callBack();
-                    }
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                        }
 
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-                    }
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
+                        }
 
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-                    }
-                });
-                animator.start();
-            }
-        }, 1000);
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
+                        }
+                    });
+                    animator.start();
+                }
+            }, 1000);
+        }
+//        footholder.tips.setVisibility(View.GONE);
+//        footholder.loadingText.setText(text);
+//        footholder.loadingText.setTextColor(context.getResources()
+//                .getColor(R.color.red));
+//        callBack.callBack();
     }
 
     //
@@ -125,7 +135,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
             delay = 1000;
         }
-//        final RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) headerHolder.itemView.getLayoutParams();
         new android.os.Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -134,13 +143,11 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {
-                        Log.d("lsy1", (int) animation.getAnimatedValue() + "");
                         headerHolder.itemView.setPadding(headerHolder.itemView.getPaddingLeft(), (int) animation.getAnimatedValue(), headerHolder.itemView.getPaddingRight(), headerHolder.itemView.getPaddingBottom());
                         headerHolder.itemView.invalidate();
                     }
                 });
                 animator.start();
-//                Log.d("ccnb11211",headerHolder.itemView.getPaddingTop() + "");
             }
         }, delay);
     }
@@ -162,6 +169,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         footholder.loadingText.setTextColor(context.getResources()
                 .getColor(R.color.myGray));
         footholder.tips.setVisibility(View.VISIBLE);
+        footholder.loadingText.setVisibility(View.VISIBLE);
         footholder.loadingText.setText("正在加载中");
         ViewGroup.LayoutParams layoutParams = footholder.itemView.getLayoutParams();
         if (b) {

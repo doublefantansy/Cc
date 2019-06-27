@@ -1,5 +1,7 @@
 package hzkj.cc.ccrecyclerview;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -91,13 +93,12 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
                 lastVisibleItem = layoutManager.findLastVisibleItemPosition();
                 lastCompleteVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
-                Log.d("ccnb11111", lastCompleteVisibleItem + "");
+                Log.d("ccnb11111", lastCompleteVisibleItem + "|" + lastVisibleItem);
             }
         });
         adapter.setCallBack(new CallBack() {
             @Override
             public void callBack() {
-                adapter.showFooter(false);
             }
         });
     }
@@ -119,14 +120,42 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
         isLoading = false;
         if (isSuccess) {
             if (isEmpty) {
-                adapter.smoothDown("已到最后");
+                adapter.smoothDown("");
 //            adapter.smoothDown("加载成功");
             } else {
-                adapter.notifyDataSetChanged();
                 adapter.showFooter(false);
+                adapter.notifyDataSetChanged();
             }
         } else {
-            adapter.smoothDown("加载失败");
+            ValueAnimator animator = ValueAnimator.ofInt(0, 200);
+            animator.setDuration(500);
+            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    smoothScrollBy(0, (Integer) animation.getAnimatedValue());
+                }
+            });
+            animator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    adapter.smoothDown("加载失败");
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+                }
+            });
+            animator.start();
+//            Toast.makeText(getContext(), "加载失败", Toast.LENGTH_SHORT)
+//                    .show();
         }
     }
 
@@ -164,7 +193,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 if ((lastVisibleItem == insideAdapter.getItemCount() | lastCompleteVisibleItem == insideAdapter.getItemCount()) & adapter.footholder != null) {
                     if (!isLoading & !isRefresh & loadMoreEnable) {
                         Log.d("cctag", "in1");
-                        if (moveY - downY < 0) {
+                        if (moveY - downY < 0 & !adapter.isEnd) {
                             if (loadMoreListenner != null) {
                                 adapter.showFooter(true);
                                 loadMoreListenner.loadMore();

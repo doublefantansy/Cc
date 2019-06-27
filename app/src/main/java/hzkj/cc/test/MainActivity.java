@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     CcRrefreshAndLoadMoreRecyclerView loadLayout;
     private List<String> list;
     TestAdapter adapter;
-    int i = 0;
+    int i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 12; i++) {
+                for (i = 0; i < 3; i++) {
                     list.add("" + i);
                 }
                 loadLayout.update();
@@ -66,18 +66,15 @@ public class MainActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        loadLayout.loadComplete(true,true);
-//                        list.add("" + i);
-//                        list.add("" + i);
-//                        list.add("" + i);
-//                        list.add("" + i);
-//                        list.add("" + i);
-//                        list.add("" + i);
-//                        list.add("" + i);
-
+                        if (list.size() > 5) {
+                            loadLayout.loadComplete(true, false);
+                        } else {
+                            list.add("" + i);
+                            i++;
+                            loadLayout.loadComplete(false, true);
+                        }
                     }
                 }, 1000);
-
             }
         });
     }

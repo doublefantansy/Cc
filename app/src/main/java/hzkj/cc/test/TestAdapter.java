@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class TestAdapter extends hzkj.cc.ccrecyclerview.BaseAdapter<TestAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        holder.view.setText(datas.get(position));
     }
 
     @Override
@@ -35,12 +36,12 @@ public class TestAdapter extends hzkj.cc.ccrecyclerview.BaseAdapter<TestAdapter.
         return datas.size();
     }
 
-
-
     public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView view;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            view = itemView.findViewById(R.id.repairId);
         }
     }
 }
