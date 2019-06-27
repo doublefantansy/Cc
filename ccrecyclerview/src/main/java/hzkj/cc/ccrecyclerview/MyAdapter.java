@@ -69,49 +69,48 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     void smoothDown(String text) {
-        if (text.equals("")) {
-            isEnd = true;
-            footholder.tips.setVisibility(View.GONE);
-            footholder.loadingText.setText("已经全部加载完毕");
-//            footholder.loadingText.setTextColor(context.getResources()
-//                    .getColor(R.color.red));
-        } else {
-            footholder.tips.setVisibility(View.GONE);
-            footholder.loadingText.setText(text);
-            new android.os.Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    ValueAnimator animator = ValueAnimator.ofInt(footholder.itemView.getHeight(), 0);
-                    animator.setDuration(500);
-                    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator animation) {
-                            ViewGroup.LayoutParams layoutParams = footholder.itemView.getLayoutParams();
-                            layoutParams.height = (int) animation.getAnimatedValue();
-                            footholder.itemView.setLayoutParams(layoutParams);
-                        }
-                    });
-                    animator.addListener(new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                        }
+//        if (text.equals("")) {
+//            isEnd = true;
+//            footholder.tips.setVisibility(View.GONE);
+//            footholder.loadingText.setText("已到最后");
+////            footholder.loadingText.setTextColor(context.getResources()
+////                    .getColor(R.color.red));
+//        } else {
+        footholder.tips.setVisibility(View.GONE);
+        footholder.loadingText.setText(text);
+        new android.os.Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ValueAnimator animator = ValueAnimator.ofInt(footholder.itemView.getHeight(), 0);
+                animator.setDuration(500);
+                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        ViewGroup.LayoutParams layoutParams = footholder.itemView.getLayoutParams();
+                        layoutParams.height = (int) animation.getAnimatedValue();
+                        footholder.itemView.setLayoutParams(layoutParams);
+                    }
+                });
+                animator.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                    }
 
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                        }
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                    }
 
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
-                        }
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                    }
 
-                        @Override
-                        public void onAnimationRepeat(Animator animation) {
-                        }
-                    });
-                    animator.start();
-                }
-            }, 1000);
-        }
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+                    }
+                });
+                animator.start();
+            }
+        }, 1000);
 //        footholder.tips.setVisibility(View.GONE);
 //        footholder.loadingText.setText(text);
 //        footholder.loadingText.setTextColor(context.getResources()

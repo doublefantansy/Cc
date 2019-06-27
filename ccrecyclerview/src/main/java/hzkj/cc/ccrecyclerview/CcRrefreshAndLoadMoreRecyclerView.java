@@ -120,8 +120,33 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
         isLoading = false;
         if (isSuccess) {
             if (isEmpty) {
-                adapter.smoothDown("");
-//            adapter.smoothDown("加载成功");
+                ValueAnimator animator = ValueAnimator.ofInt(0, 200);
+                animator.setDuration(500);
+                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        smoothScrollBy(0, (Integer) animation.getAnimatedValue());
+                    }
+                });
+                animator.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        adapter.smoothDown("已到最后");
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+                    }
+                });
+                animator.start();
             } else {
                 adapter.showFooter(false);
                 adapter.notifyDataSetChanged();

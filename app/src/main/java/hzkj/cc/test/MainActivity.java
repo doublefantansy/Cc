@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (list.size() > 5) {
-                            loadLayout.loadComplete(true, false);
+                            loadLayout.loadComplete(true, true);
                         } else {
                             list.add("" + i);
                             i++;
