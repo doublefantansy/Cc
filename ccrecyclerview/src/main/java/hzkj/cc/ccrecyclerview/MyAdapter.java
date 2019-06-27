@@ -69,13 +69,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     void smoothDown(String text) {
-//        if (text.equals("")) {
-//            isEnd = true;
-//            footholder.tips.setVisibility(View.GONE);
-//            footholder.loadingText.setText("已到最后");
-////            footholder.loadingText.setTextColor(context.getResources()
-////                    .getColor(R.color.red));
-//        } else {
         footholder.tips.setVisibility(View.GONE);
         footholder.loadingText.setText(text);
         new android.os.Handler().postDelayed(new Runnable() {

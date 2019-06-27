@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new TestAdapter(this, list);
         loadLayout = findViewById(R.id.layout);
         loadLayout.init(adapter);
-        loadLayout.setClickItemListenner(new ClickItemListenner() {
+        loadLayout.setClickItemListenner(   new ClickItemListenner() {
             @Override
             public void click(int position) {
                 Toast.makeText(MainActivity.this, position + "", Toast.LENGTH_SHORT)

@@ -120,7 +120,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
         isLoading = false;
         if (isSuccess) {
             if (isEmpty) {
-                ValueAnimator animator = ValueAnimator.ofInt(0, 200);
+                ValueAnimator animator = ValueAnimator.ofInt(0, adapter.footerHeight);
                 animator.setDuration(500);
                 animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
@@ -152,7 +152,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 adapter.notifyDataSetChanged();
             }
         } else {
-            ValueAnimator animator = ValueAnimator.ofInt(0, 200);
+            ValueAnimator animator = ValueAnimator.ofInt(0, adapter.footerHeight);
             animator.setDuration(500);
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
