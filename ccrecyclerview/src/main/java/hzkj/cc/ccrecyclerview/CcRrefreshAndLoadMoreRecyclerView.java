@@ -215,7 +215,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 } else {
                     isCanR = false;
                 }
-                if ((lastVisibleItem == insideAdapter.getItemCount() && (lastCompleteVisibleItem == insideAdapter.getItemCount() + 1 | lastCompleteVisibleItem == insideAdapter.getItemCount())) & adapter.footholder != null)
+                if ((lastCompleteVisibleItem == insideAdapter.getItemCount() + 1 || ((lastCompleteVisibleItem == insideAdapter.getItemCount()) && lastVisibleItem == insideAdapter.getItemCount()) & adapter.footholder != null))
                 {
                     if (!isLoading & !isRefresh & loadMoreEnable) {
                         Log.d("cctag", "in1");
