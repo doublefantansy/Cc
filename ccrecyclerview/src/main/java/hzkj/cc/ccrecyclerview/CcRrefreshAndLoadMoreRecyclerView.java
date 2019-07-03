@@ -11,7 +11,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
     //    RecyclerView recyclerView;
@@ -93,7 +92,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
                 lastVisibleItem = layoutManager.findLastVisibleItemPosition();
                 lastCompleteVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
-                Log.d("ccnb11111", lastCompleteVisibleItem + "|" + lastVisibleItem);
+                Log.d("ccnb11111", firstVisibleItem + "|" + lastCompleteVisibleItem + "|" + lastVisibleItem);
             }
         });
         adapter.setCallBack(new CallBack() {
@@ -111,8 +110,8 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
         }
         if (!isFirst) {
             adapter.showHeader(false, isSuccess);
-            Toast.makeText(getContext(), "刷新完成", Toast.LENGTH_SHORT)
-                    .show();
+//            Toast.makeText(getContext(), "刷新完成", Toast.LENGTH_SHORT)
+//                    .show();
         }
     }
 
@@ -215,8 +214,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 } else {
                     isCanR = false;
                 }
-                if ((lastCompleteVisibleItem == insideAdapter.getItemCount() + 1 || ((lastCompleteVisibleItem == insideAdapter.getItemCount()) && lastVisibleItem == insideAdapter.getItemCount()) & adapter.footholder != null))
-                {
+                if (firstVisibleItem != 1 && (lastCompleteVisibleItem == insideAdapter.getItemCount() + 1 || ((lastCompleteVisibleItem == insideAdapter.getItemCount()) && lastVisibleItem == insideAdapter.getItemCount()) & adapter.footholder != null)) {
                     if (!isLoading & !isRefresh & loadMoreEnable) {
                         Log.d("cctag", "in1");
                         if (moveY - downY < 0 & !adapter.isEnd) {
