@@ -214,7 +214,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 } else {
                     isCanR = false;
                 }
-                if (firstVisibleItem <= 1 && (lastCompleteVisibleItem == insideAdapter.getItemCount() + 1 || ((lastCompleteVisibleItem == insideAdapter.getItemCount()) && lastVisibleItem == insideAdapter.getItemCount()) & adapter.footholder != null)) {
+                if (layoutManager.findFirstCompletelyVisibleItemPosition() > 1 && (lastCompleteVisibleItem == insideAdapter.getItemCount() + 1 || ((lastCompleteVisibleItem == insideAdapter.getItemCount()) && lastVisibleItem == insideAdapter.getItemCount()) & adapter.footholder != null)) {
                     if (!isLoading & !isRefresh & loadMoreEnable & !isMove) {
                         Log.d("cctag", "in1");
                         if (moveY - downY < 0 & !adapter.isEnd) {
