@@ -74,7 +74,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         new android.os.Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                ValueAnimator animator = ValueAnimator.ofInt(footholder.itemView.getHeight(), 0);
+                ValueAnimator animator = ValueAnimator.ofInt(footerHeight, 0);
                 animator.setDuration(1000);
                 animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
