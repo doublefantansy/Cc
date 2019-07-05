@@ -120,7 +120,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
 //        isLoading = false;
         if (isSuccess) {
             if (isEmpty) {
-                ValueAnimator animator = ValueAnimator.ofInt(0, adapter.footerHeight);
+                ValueAnimator animator = ValueAnimator.ofInt(0, adapter.footholder.itemView.getHeight());
                 animator.setDuration(1000);
                 animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
@@ -224,6 +224,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                                 adapter.showFooter(true);
                                 loadMoreListenner.loadMore();
                                 isLoading = true;
+//                                smoothScrollBy(0, (Integer) animation.getAnimatedValue());
                             }
                         }
                     }

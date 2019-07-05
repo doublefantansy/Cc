@@ -223,7 +223,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     class FootHolder extends RecyclerView.ViewHolder {
-        private ImageView tips;
+         ImageView tips;
         TextView loadingText;
 
         public FootHolder(View itemView) {
