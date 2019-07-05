@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -68,14 +69,15 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    void smoothDown(String text) {
+    void smoothDown(final String text) {
         footholder.tips.setVisibility(View.GONE);
         footholder.loadingText.setText(text);
         new android.os.Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 ValueAnimator animator = ValueAnimator.ofInt(footerHeight, 0);
-                animator.setDuration(1000);
+                animator.setInterpolator(new LinearInterpolator());
+                animator.setDuration(500);
                 animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {
@@ -133,6 +135,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             public void run() {
                 ValueAnimator animator = ValueAnimator.ofInt(headerHolder.itemView.getPaddingTop(), toTop ? -headerHeight : 0);
                 animator.setDuration(500);
+                animator.setInterpolator(new LinearInterpolator());
                 animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {
@@ -223,7 +226,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     class FootHolder extends RecyclerView.ViewHolder {
-         ImageView tips;
+        ImageView tips;
         TextView loadingText;
 
         public FootHolder(View itemView) {

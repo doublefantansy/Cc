@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 
 public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
     //    RecyclerView recyclerView;
@@ -118,82 +119,80 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
     }
 
     public void loadComplete(final boolean isEmpty, final boolean isSuccess) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (isSuccess) {
-                    if (isEmpty) {
-                        ValueAnimator animator = ValueAnimator.ofInt(0, adapter.footerHeight);
-                        animator.setDuration(1000);
-                        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator animation) {
-                                Log.d("lsy", (Integer) animation.getAnimatedValue() + "");
-                                smoothScrollBy(0, (Integer) animation.getAnimatedValue());
-                            }
-                        });
-                        animator.addListener(new Animator.AnimatorListener() {
-                            @Override
-                            public void onAnimationStart(Animator animation) {
-                            }
+        if (isSuccess) {
+            if (isEmpty) {
+//                animator = ValueAnimator.ofInt(0, adapter.footerHeight);
+//                animator.setDuration(1000);
+//                animator.setInterpolator(new LinearInterpolator());
+//                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//                    @Override
+//                    public void onAnimationUpdate(ValueAnimator animation) {
+//                        Log.d("lsy", animation.getAnimatedValue() + "");
+//                        smoothScrollBy(0, (Integer) animation.getAnimatedValue());
+////                        }
+//                    }
+//                });
+//                animator.addListener(new Animator.AnimatorListener() {
+//                    @Override
+//                    public void onAnimationStart(Animator animation) {
+//                    }
+//
+//                    @Override
+//                    public void onAnimationEnd(Animator animation) {
+////                        new Handler().postDelayed(new Runnable() {
+////                            @Override
+////                            public void run() {
+                adapter.smoothDown("已到最后");
+////                            }
+////                        }, 1000);
+//                    }
+//
+//                    @Override
+//                    public void onAnimationCancel(Animator animation) {
+//                    }
+//
+//                    @Override
+//                    public void onAnimationRepeat(Animator animation) {
+//                    }
+//                });
+//                animator.start();
+            } else {
+                isLoading = false;
+                adapter.showFooter(false);
+                adapter.notifyDataSetChanged();
+            }
+        } else {
+            ValueAnimator animator = ValueAnimator.ofInt(0, adapter.footerHeight);
+            animator.setDuration(500);
+            animator.setInterpolator(new LinearInterpolator());
+            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    smoothScrollBy(0, (Integer) animation.getAnimatedValue());
+                }
+            });
+            animator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                }
 
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-//                        new Handler().postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-                                adapter.smoothDown("已到最后");
-//                            }
-//                        }, 1000);
-                            }
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    adapter.smoothDown("加载失败");
+                }
 
-                            @Override
-                            public void onAnimationCancel(Animator animation) {
-                            }
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                }
 
-                            @Override
-                            public void onAnimationRepeat(Animator animation) {
-                            }
-                        });
-                        animator.start();
-                    } else {
-                        isLoading = false;
-                        adapter.showFooter(false);
-                        adapter.notifyDataSetChanged();
-                    }
-                } else {
-                    ValueAnimator animator = ValueAnimator.ofInt(0, adapter.footerHeight);
-                    animator.setDuration(500);
-                    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator animation) {
-                            smoothScrollBy(0, (Integer) animation.getAnimatedValue());
-                        }
-                    });
-                    animator.addListener(new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            adapter.smoothDown("加载失败");
-                        }
-
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animator animation) {
-                        }
-                    });
-                    animator.start();
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+                }
+            });
+            animator.start();
 //            Toast.makeText(getContext(), "加载失败", Toast.LENGTH_SHORT)
 //                    .show();
-                }
-            }
-        }, 1000);
+        }
     }
 
     @Override
@@ -229,13 +228,45 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 }
                 if (layoutManager.findFirstCompletelyVisibleItemPosition() > 1 && (lastCompleteVisibleItem == insideAdapter.getItemCount() + 1 || ((lastCompleteVisibleItem == insideAdapter.getItemCount()) && lastVisibleItem == insideAdapter.getItemCount()) & adapter.footholder != null)) {
                     if (!isLoading & !isRefresh & loadMoreEnable & !isMove) {
-                        Log.d("cctag", "in1");
                         if (moveY - downY < 0 & !adapter.isEnd) {
                             if (loadMoreListenner != null) {
                                 adapter.showFooter(true);
-                                loadMoreListenner.loadMore();
-                                isLoading = true;
-//                                smoothScrollBy(0, (Integer) animation.getAnimatedValue());
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ValueAnimator animator = ValueAnimator.ofInt(0, adapter.footerHeight);
+                                        animator.setDuration(500);
+                                        animator.setInterpolator(new LinearInterpolator());
+                                        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                            @Override
+                                            public void onAnimationUpdate(ValueAnimator animation) {
+                                                smoothScrollBy(0, (Integer) animation.getAnimatedValue());
+//                        }
+                                            }
+                                        });
+                                        animator.addListener(new Animator.AnimatorListener() {
+                                            @Override
+                                            public void onAnimationStart(Animator animation) {
+                                            }
+
+                                            @Override
+                                            public void onAnimationEnd(Animator animation) {
+                                                isLoading = true;
+                                                loadMoreListenner.loadMore();
+//
+                                            }
+
+                                            @Override
+                                            public void onAnimationCancel(Animator animation) {
+                                            }
+
+                                            @Override
+                                            public void onAnimationRepeat(Animator animation) {
+                                            }
+                                        });
+                                        animator.start();
+                                    }
+                                }, 500);
                             }
                         }
                     }
