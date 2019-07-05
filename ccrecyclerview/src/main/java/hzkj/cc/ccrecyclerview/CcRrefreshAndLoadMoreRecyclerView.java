@@ -148,6 +148,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 });
                 animator.start();
             } else {
+                isLoading = false;
                 adapter.showFooter(false);
                 adapter.notifyDataSetChanged();
             }
