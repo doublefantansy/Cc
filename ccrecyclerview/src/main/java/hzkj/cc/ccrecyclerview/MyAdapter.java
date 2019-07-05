@@ -91,6 +91,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
+                        callBack.callBack();
                     }
 
                     @Override

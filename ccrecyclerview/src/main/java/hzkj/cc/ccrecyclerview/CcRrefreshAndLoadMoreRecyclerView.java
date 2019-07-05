@@ -98,6 +98,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
         adapter.setCallBack(new CallBack() {
             @Override
             public void callBack() {
+                isLoading = false;
             }
         });
     }
@@ -116,7 +117,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
     }
 
     public void loadComplete(boolean isEmpty, boolean isSuccess) {
-        isLoading = false;
+//        isLoading = false;
         if (isSuccess) {
             if (isEmpty) {
                 ValueAnimator animator = ValueAnimator.ofInt(0, adapter.footerHeight);
