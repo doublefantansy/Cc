@@ -121,7 +121,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
         if (isSuccess) {
             if (isEmpty) {
                 ValueAnimator animator = ValueAnimator.ofInt(0, adapter.footerHeight);
-                animator.setDuration(500);
+                animator.setDuration(1000);
                 animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {

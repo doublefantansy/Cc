@@ -75,7 +75,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             @Override
             public void run() {
                 ValueAnimator animator = ValueAnimator.ofInt(footholder.itemView.getHeight(), 0);
-                animator.setDuration(500);
+                animator.setDuration(1000);
                 animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {
@@ -132,7 +132,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             @Override
             public void run() {
                 ValueAnimator animator = ValueAnimator.ofInt(headerHolder.itemView.getPaddingTop(), toTop ? -headerHeight : 0);
-                animator.setDuration(200);
+                animator.setDuration(500);
                 animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {
