@@ -78,6 +78,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
     private void initRecyclerView() {
 //        recyclerView = new RecyclerView(getContext());
         this.setAdapter(adapter);
+        this.setBackgroundColor(getResources().getColor(R.color.recyclerView_white));
         layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         this.setLayoutManager(layoutManager);
@@ -100,8 +101,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                         }
                     }
                 }
-                Log.d("lsylsy", layoutManager.findFirstCompletelyVisibleItemPosition()+"");
-
+                Log.d("lsylsy", layoutManager.findFirstCompletelyVisibleItemPosition() + "");
             }
         });
         adapter.setCallBack(new CallBack() {

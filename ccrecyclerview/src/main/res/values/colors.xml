@@ -3,4 +3,5 @@
     <color name="red">#FF3030</color>
     <color name="myBlue">#1DA7ED</color>
     <color name="myGray">#515151</color>
+    <color name="recyclerView_white">#ffffff</color>
 </resources>
