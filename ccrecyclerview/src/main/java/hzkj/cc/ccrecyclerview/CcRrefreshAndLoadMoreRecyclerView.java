@@ -100,6 +100,8 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                         }
                     }
                 }
+                Log.d("lsylsy", layoutManager.findFirstCompletelyVisibleItemPosition()+"");
+
             }
         });
         adapter.setCallBack(new CallBack() {
@@ -147,14 +149,14 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
         boolean intercept = false;
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
-                downY = event.getRawY();
+                downY = event.getY();
                 moveY = 0;
                 canR = false;
                 intercept = false;
                 break;
             }
             case MotionEvent.ACTION_MOVE: {
-                moveY = event.getRawY();
+                moveY = event.getY();
                 if (!isRefresh & !isLoading & refreshEnable) {
                     isCanR = true;
                     if (firstVisibleItem == 1 | firstVisibleItem == 0) {
@@ -173,7 +175,6 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 } else {
                     isCanR = false;
                 }
-                Log.d("lsy", lastCompleteVisibleItem + "|" + (insideAdapter.getItemCount() + 1));
                 if (layoutManager.findFirstCompletelyVisibleItemPosition() > 1 && lastCompleteVisibleItem == insideAdapter.getItemCount() + 1 && downY > moveY) {
                     if (!isLoading & !isRefresh & loadMoreEnable & !isMove) {
                         if (loadMoreListenner != null) {
@@ -186,7 +187,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 break;
             }
             case MotionEvent.ACTION_UP: {
-                upY = event.getRawY();
+                upY = event.getY();
                 if (isCanR) {
                     if (canR) {
                         adapter.showHeader(true, true);
