@@ -91,7 +91,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 lastVisibleItem = layoutManager.findLastVisibleItemPosition();
                 lastCompleteVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
 //                Log.d("lsy", lastCompleteVisibleItem + "|" + (insideAdapter.getItemCount() + 1));
-                if (lastCompleteVisibleItem == insideAdapter.getItemCount() + 1) {
+                if (layoutManager.findFirstCompletelyVisibleItemPosition() > 1 && lastCompleteVisibleItem == insideAdapter.getItemCount() + 1) {
                     if (!isLoading & !isRefresh & loadMoreEnable & !isMove) {
                         if (loadMoreListenner != null) {
                             adapter.showFooter(0);
@@ -174,7 +174,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                     isCanR = false;
                 }
                 Log.d("lsy", lastCompleteVisibleItem + "|" + (insideAdapter.getItemCount() + 1));
-                if (lastCompleteVisibleItem == insideAdapter.getItemCount() + 1 && downY > moveY) {
+                if (layoutManager.findFirstCompletelyVisibleItemPosition() > 1 && lastCompleteVisibleItem == insideAdapter.getItemCount() + 1 && downY > moveY) {
                     if (!isLoading & !isRefresh & loadMoreEnable & !isMove) {
                         if (loadMoreListenner != null) {
                             isLoading = true;

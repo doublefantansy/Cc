@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                for (i = 0; i < 1; i++) {
+                for (i = 0; i < 2; i++) {
                     list.add("" + i);
                 }
                 loadLayout.update();
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new TestAdapter(this, list);
         loadLayout = findViewById(R.id.layout);
         loadLayout.init(adapter);
-        loadLayout.setClickItemListenner(   new ClickItemListenner() {
+        loadLayout.setClickItemListenner(new ClickItemListenner() {
             @Override
             public void click(int position) {
                 Toast.makeText(MainActivity.this, position + "", Toast.LENGTH_SHORT)
@@ -55,9 +55,13 @@ public class MainActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        list.clear();
+                        for (i = 0; i < 13; i++) {
+                            list.add("" + i);
+                        }
                         loadLayout.refreshComplete(true, false);
                     }
-                }, 3000);
+                }, 1000);
             }
         });
         loadLayout.setLoadMoreListenner(new CcRrefreshAndLoadMoreRecyclerView.LoadMoreListenner() {
@@ -66,12 +70,12 @@ public class MainActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (list.size() > 5) {
+                        if (i > 15) {
                             loadLayout.loadComplete(true, true);
                         } else {
-                            list.add("" + i);
-                            i++;
-                            loadLayout.loadComplete(false, true);
+//                            i++;
+//                            list.add(i + "");
+                            loadLayout.loadComplete(true, false);
                         }
                     }
                 }, 1000);
