@@ -1,9 +1,6 @@
 package hzkj.cc.ccrecyclerview;
 
-import android.animation.Animator;
-import android.animation.ValueAnimator;
 import android.content.Context;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +9,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
 
 public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
     //    RecyclerView recyclerView;
@@ -94,13 +90,22 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
                 lastVisibleItem = layoutManager.findLastVisibleItemPosition();
                 lastCompleteVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
-                Log.d("ccnb11111", layoutManager.findFirstCompletelyVisibleItemPosition() + "|" + lastCompleteVisibleItem + "|" + lastVisibleItem);
+//                Log.d("lsy", lastCompleteVisibleItem + "|" + (insideAdapter.getItemCount() + 1));
+                if (lastCompleteVisibleItem == insideAdapter.getItemCount() + 1) {
+                    if (!isLoading & !isRefresh & loadMoreEnable & !isMove) {
+                        if (loadMoreListenner != null) {
+                            adapter.showFooter(0);
+                            isLoading = true;
+                            loadMoreListenner.loadMore();
+                        }
+                    }
+                }
             }
         });
         adapter.setCallBack(new CallBack() {
             @Override
             public void callBack() {
-                isLoading = false;
+                isLoading = true;
             }
         });
     }
@@ -109,6 +114,8 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
         isRefresh = false;
         smoothScrollToPosition(0);
         if (isSuccess) {
+            loadMoreEnable = true;
+            adapter.showFooter(1);
             adapter.notifyDataSetChanged();
         }
         if (!isFirst) {
@@ -120,79 +127,19 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
 
     public void loadComplete(final boolean isEmpty, final boolean isSuccess) {
         if (isSuccess) {
+            isLoading = false;
             if (isEmpty) {
-//                animator = ValueAnimator.ofInt(0, adapter.footerHeight);
-//                animator.setDuration(1000);
-//                animator.setInterpolator(new LinearInterpolator());
-//                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//                    @Override
-//                    public void onAnimationUpdate(ValueAnimator animation) {
-//                        Log.d("lsy", animation.getAnimatedValue() + "");
-//                        smoothScrollBy(0, (Integer) animation.getAnimatedValue());
-////                        }
-//                    }
-//                });
-//                animator.addListener(new Animator.AnimatorListener() {
-//                    @Override
-//                    public void onAnimationStart(Animator animation) {
-//                    }
-//
-//                    @Override
-//                    public void onAnimationEnd(Animator animation) {
-////                        new Handler().postDelayed(new Runnable() {
-////                            @Override
-////                            public void run() {
-                adapter.smoothDown("已到最后");
-////                            }
-////                        }, 1000);
-//                    }
-//
-//                    @Override
-//                    public void onAnimationCancel(Animator animation) {
-//                    }
-//
-//                    @Override
-//                    public void onAnimationRepeat(Animator animation) {
-//                    }
-//                });
-//                animator.start();
+                adapter.showFooter(2);
+                loadMoreEnable = false;
             } else {
-                isLoading = false;
-                adapter.showFooter(false);
+                adapter.showFooter(1);
                 adapter.notifyDataSetChanged();
             }
         } else {
-            ValueAnimator animator = ValueAnimator.ofInt(0, adapter.footerHeight);
-            animator.setDuration(500);
-            animator.setInterpolator(new LinearInterpolator());
-            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    smoothScrollBy(0, (Integer) animation.getAnimatedValue());
-                }
-            });
-            animator.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    adapter.smoothDown("加载失败");
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-                }
-            });
-            animator.start();
-//            Toast.makeText(getContext(), "加载失败", Toast.LENGTH_SHORT)
-//                    .show();
+            isLoading = false;
+            adapter.showFooter(3);
         }
+//
     }
 
     @Override
@@ -226,48 +173,13 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
                 } else {
                     isCanR = false;
                 }
-                if (layoutManager.findFirstCompletelyVisibleItemPosition() > 1 && (lastCompleteVisibleItem == insideAdapter.getItemCount() + 1 || ((lastCompleteVisibleItem == insideAdapter.getItemCount()) && lastVisibleItem == insideAdapter.getItemCount()) & adapter.footholder != null)) {
+                Log.d("lsy", lastCompleteVisibleItem + "|" + (insideAdapter.getItemCount() + 1));
+                if (lastCompleteVisibleItem == insideAdapter.getItemCount() + 1 && downY > moveY) {
                     if (!isLoading & !isRefresh & loadMoreEnable & !isMove) {
-                        if (moveY - downY < 0 & !adapter.isEnd) {
-                            if (loadMoreListenner != null) {
-                                adapter.showFooter(true);
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        ValueAnimator animator = ValueAnimator.ofInt(0, adapter.footerHeight);
-                                        animator.setDuration(500);
-                                        animator.setInterpolator(new LinearInterpolator());
-                                        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                                            @Override
-                                            public void onAnimationUpdate(ValueAnimator animation) {
-                                                smoothScrollBy(0, (Integer) animation.getAnimatedValue());
-//                        }
-                                            }
-                                        });
-                                        animator.addListener(new Animator.AnimatorListener() {
-                                            @Override
-                                            public void onAnimationStart(Animator animation) {
-                                            }
-
-                                            @Override
-                                            public void onAnimationEnd(Animator animation) {
-                                                isLoading = true;
-                                                loadMoreListenner.loadMore();
-//
-                                            }
-
-                                            @Override
-                                            public void onAnimationCancel(Animator animation) {
-                                            }
-
-                                            @Override
-                                            public void onAnimationRepeat(Animator animation) {
-                                            }
-                                        });
-                                        animator.start();
-                                    }
-                                }, 500);
-                            }
+                        if (loadMoreListenner != null) {
+                            isLoading = true;
+                            adapter.showFooter(0);
+                            loadMoreListenner.loadMore();
                         }
                     }
                 }

@@ -134,7 +134,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             @Override
             public void run() {
                 ValueAnimator animator = ValueAnimator.ofInt(headerHolder.itemView.getPaddingTop(), toTop ? -headerHeight : 0);
-                animator.setDuration(500);
+                animator.setDuration(200);
                 animator.setInterpolator(new LinearInterpolator());
                 animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
@@ -161,19 +161,28 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //        Log.d("lsyssd", headerHolder.itemView.getPaddingTop() + "");
     }
 
-    public void showFooter(boolean b) {
-        footholder.loadingText.setTextColor(context.getResources()
-                .getColor(R.color.myGray));
-        footholder.tips.setVisibility(View.VISIBLE);
-        footholder.loadingText.setVisibility(View.VISIBLE);
-        footholder.loadingText.setText("正在加载中");
-        ViewGroup.LayoutParams layoutParams = footholder.itemView.getLayoutParams();
-        if (b) {
-            layoutParams.height = (int) footerHeight;
+    public void showFooter(int status) {
+        if (status == 0) {
+            footholder.loadingText.setTextColor(context.getResources()
+                    .getColor(R.color.myGray));
+            footholder.tips.setVisibility(View.VISIBLE);
+            footholder.loadingText.setText("正在加载中");
+        } else if (status == 1) {
+            footholder.tips.setVisibility(View.GONE);
+            footholder.loadingText.setText("");
+        } else if (status == 2) {
+            footholder.loadingText.setTextColor(context.getResources()
+                    .getColor(R.color.myBlue));
+            footholder.tips.setVisibility(View.GONE);
+            footholder.loadingText.setText("已经全部加载完毕");
+//            callBack.callBack();
         } else {
-            layoutParams.height = 0;
+            footholder.loadingText.setTextColor(context.getResources()
+                    .getColor(R.color.red));
+            footholder.tips.setVisibility(View.GONE);
+            footholder.loadingText.setText("网络错误");
         }
-        footholder.itemView.setLayoutParams(layoutParams);
+//        ViewGroup.LayoutParams layoutParams = footholder.itemView.getLayoutParams();
     }
 
     class HeaderHolder extends RecyclerView.ViewHolder {
@@ -234,8 +243,10 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tips = itemView.findViewById(R.id.loading);
             loadingText = itemView.findViewById(R.id.message);
             footerHeight = itemView.getLayoutParams().height;
-            ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
-            layoutParams.height = 0;
+            tips.setVisibility(View.GONE);
+            loadingText.setText("");
+//            ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
+//            layoutParams.height = 0;
             Log.d("ccnb111", footerHeight + "");
         }
     }
