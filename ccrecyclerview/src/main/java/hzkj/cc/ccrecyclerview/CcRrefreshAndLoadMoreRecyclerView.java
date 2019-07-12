@@ -112,9 +112,16 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
         isLoading = true;
       }
     });
-
   }
 
+
+  public void resumeRefresh() {
+    if (!first) {
+      adapter.resumeShowHeader();
+      isRefresh = true;
+      refreshListenner.refresh();
+    }
+  }
 
   public void refreshComplete(boolean isSuccess) {
     isRefresh = false;
@@ -124,7 +131,6 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
       if (adapter.footholder != null) {
         adapter.showFooter(1);
       }
-
       if (first) {
         first = false;
         update();
@@ -135,7 +141,6 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
     } else {
       adapter.showHeader(false, isSuccess);
     }
-
   }
 
   public void loadComplete(final boolean isEmpty, final boolean isSuccess) {
