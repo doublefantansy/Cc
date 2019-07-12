@@ -143,7 +143,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
           @Override
           public void onAnimationUpdate(ValueAnimator animation) {
-
             if (((Integer) animation.getAnimatedValue()) != mPrevious) {
               Log.d("lsycc", (Integer) animation.getAnimatedValue() + "");
               headerHolder.itemView.setPadding(headerHolder.itemView.getPaddingLeft(),
@@ -202,12 +201,14 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   }
 
   public void resumeShowHeader() {
-    headerHolder.itemView.setPadding(headerHolder.itemView.getPaddingLeft(), 0,
-        headerHolder.itemView.getPaddingRight(), headerHolder.itemView.getPaddingBottom());
-    headerHolder.loading.setVisibility(View.VISIBLE);
-    headerHolder.text.setTextColor(context.getResources()
-        .getColor(R.color.myGray));
-    headerHolder.text.setText("正在刷新中");
+    if (headerHolder != null) {
+      headerHolder.itemView.setPadding(headerHolder.itemView.getPaddingLeft(), 0,
+          headerHolder.itemView.getPaddingRight(), headerHolder.itemView.getPaddingBottom());
+      headerHolder.loading.setVisibility(View.VISIBLE);
+      headerHolder.text.setTextColor(context.getResources()
+          .getColor(R.color.myGray));
+      headerHolder.text.setText("正在刷新中");
+    }
   }
 
   class HeaderHolder extends RecyclerView.ViewHolder {
