@@ -70,9 +70,10 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
     this.insideAdapter = insideAdapter;
     adapter = new MyAdapter(insideAdapter, getContext());
     initRecyclerView();
+//    resumeRefresh();
   }
 
-  public void update() {
+  private void update() {
     adapter.notifyDataSetChanged();
   }
 
@@ -92,7 +93,6 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
         firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
         lastVisibleItem = layoutManager.findLastVisibleItemPosition();
         lastCompleteVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
-//                Log.d("lsy", lastCompleteVisibleItem + "|" + (insideAdapter.getItemCount() + 1));
         if (layoutManager.findFirstCompletelyVisibleItemPosition() > 1
             && lastCompleteVisibleItem == insideAdapter.getItemCount() + 1) {
           if (!isLoading & !isRefresh & loadMoreEnable & !isMove) {
@@ -112,9 +112,11 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
         isLoading = true;
       }
     });
+
   }
 
-  public void refreshComplete(boolean isSuccess, boolean isFirst) {
+
+  public void refreshComplete(boolean isSuccess) {
     isRefresh = false;
     smoothScrollToPosition(0);
     if (isSuccess) {
@@ -123,13 +125,17 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
         adapter.showFooter(1);
       }
 
-      adapter.notifyDataSetChanged();
-    }
-    if (!isFirst) {
+      if (first) {
+        first = false;
+        update();
+      } else {
+        adapter.showHeader(false, isSuccess);
+        adapter.notifyDataSetChanged();
+      }
+    } else {
       adapter.showHeader(false, isSuccess);
-//            Toast.makeText(getContext(), "刷新完成", Toast.LENGTH_SHORT)
-//                    .show();
     }
+
   }
 
   public void loadComplete(final boolean isEmpty, final boolean isSuccess) {

@@ -152,6 +152,8 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (showLoading) {
             smoothUp(false, null);
             headerHolder.loading.setVisibility(View.VISIBLE);
+            headerHolder.text.setTextColor(context.getResources()
+                .getColor(R.color.myGray));
             headerHolder.text.setText("正在刷新中");
             ((RelativeLayout.LayoutParams) headerHolder.layout.getLayoutParams()).removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             ((RelativeLayout.LayoutParams) headerHolder.layout.getLayoutParams()).addRule(RelativeLayout.CENTER_IN_PARENT);
