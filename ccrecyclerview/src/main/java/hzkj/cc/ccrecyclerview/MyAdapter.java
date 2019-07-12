@@ -161,17 +161,15 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
   public void showHeader(boolean showLoading, boolean isSuccess) {
     if (showLoading) {
-      if (headerHolder != null) {
-        smoothUp(false, null);
-        headerHolder.loading.setVisibility(View.VISIBLE);
-        headerHolder.text.setTextColor(context.getResources()
-            .getColor(R.color.myGray));
-        headerHolder.text.setText("正在刷新中");
-        ((RelativeLayout.LayoutParams) headerHolder.layout.getLayoutParams())
-            .removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        ((RelativeLayout.LayoutParams) headerHolder.layout.getLayoutParams())
-            .addRule(RelativeLayout.CENTER_IN_PARENT);
-      }
+      smoothUp(false, null);
+      headerHolder.loading.setVisibility(View.VISIBLE);
+      headerHolder.text.setTextColor(context.getResources()
+          .getColor(R.color.myGray));
+      headerHolder.text.setText("正在刷新中");
+      ((RelativeLayout.LayoutParams) headerHolder.layout.getLayoutParams())
+          .removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+      ((RelativeLayout.LayoutParams) headerHolder.layout.getLayoutParams())
+          .addRule(RelativeLayout.CENTER_IN_PARENT);
     } else {
       smoothUp(true, isSuccess ? "刷新成功" : "刷新失败");
     }
