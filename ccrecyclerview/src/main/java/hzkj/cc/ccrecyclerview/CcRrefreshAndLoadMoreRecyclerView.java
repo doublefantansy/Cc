@@ -34,7 +34,6 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
   private float upY;
   float temp;
   ClickItemListenner listenner;
-  private boolean first = true;
   private boolean isMove;
 
   public void setClickItemListenner(ClickItemListenner listenner) {
@@ -116,11 +115,9 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
 
 
   public void resumeRefresh() {
-    if (!first) {
-      adapter.resumeShowHeader();
-      isRefresh = true;
-      refreshListenner.refresh();
-    }
+    adapter.resumeShowHeader();
+    isRefresh = true;
+    refreshListenner.refresh();
   }
 
   public void refreshComplete(boolean isSuccess) {
