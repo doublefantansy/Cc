@@ -125,7 +125,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
 
   public void refreshComplete(boolean isSuccess) {
     isRefresh = false;
-    smoothScrollToPosition(0);
+//    smoothScrollToPosition(0);
     if (isSuccess) {
       loadMoreEnable = true;
       if (adapter.footholder != null) {
