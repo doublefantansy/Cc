@@ -34,6 +34,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
   private float upY;
   float temp;
   ClickItemListenner listenner;
+  //  private boolean first = true;
   private boolean isMove;
 
   public void setClickItemListenner(ClickItemListenner listenner) {
@@ -72,7 +73,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
 //    resumeRefresh();
   }
 
-  public void update() {
+  private void update() {
     adapter.notifyDataSetChanged();
   }
 
@@ -115,9 +116,11 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
 
 
   public void resumeRefresh() {
-    adapter.resumeShowHeader();
-    isRefresh = true;
-    refreshListenner.refresh();
+    if (insideAdapter.getItemCount() != 0) {
+      adapter.resumeShowHeader();
+      isRefresh = true;
+      refreshListenner.refresh();
+    }
   }
 
   public void refreshComplete(boolean isSuccess) {
@@ -128,8 +131,12 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
       if (adapter.footholder != null) {
         adapter.showFooter(1);
       }
-      adapter.showHeader(false, isSuccess);
-      adapter.notifyDataSetChanged();
+      if (insideAdapter.getItemCount() == 0) {
+        update();
+      } else {
+        adapter.notifyDataSetChanged();
+        adapter.showHeader(false, isSuccess);
+      }
     } else {
       adapter.showHeader(false, isSuccess);
     }
