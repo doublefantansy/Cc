@@ -140,8 +140,8 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
         first = false;
         update();
       } else {
-        adapter.showHeader(false, isSuccess);
         adapter.notifyDataSetChanged();
+        adapter.showHeader(false, isSuccess);
       }
     } else {
       adapter.showHeader(false, isSuccess);
