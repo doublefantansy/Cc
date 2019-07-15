@@ -73,7 +73,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
 //    resumeRefresh();
   }
 
-  private void update() {
+  public void update() {
     adapter.notifyDataSetChanged();
   }
 
@@ -131,13 +131,8 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
       if (adapter.footholder != null) {
         adapter.showFooter(1);
       }
-      if (first) {
-        first = false;
-        update();
-      } else {
-        adapter.notifyDataSetChanged();
-        adapter.showHeader(false, isSuccess);
-      }
+      adapter.showHeader(false, isSuccess);
+      adapter.notifyDataSetChanged();
     } else {
       adapter.showHeader(false, isSuccess);
     }
