@@ -117,14 +117,9 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
 
   public void resumeRefresh() {
     if (!first) {
-      adapter.headerHolder.itemView.post(new Runnable() {
-        @Override
-        public void run() {
-          adapter.resumeShowHeader();
-          isRefresh = true;
-          refreshListenner.refresh();
-        }
-      });
+      adapter.resumeShowHeader();
+      isRefresh = true;
+      refreshListenner.refresh();
     }
   }
 
