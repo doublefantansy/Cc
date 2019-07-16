@@ -23,6 +23,10 @@ public class RecyclerLayout extends LinearLayout {
     recyclerView.setRefreshEnable(refreshEnable);
   }
 
+  public void setClickItemListenner(ClickItemListenner clickItemListenner) {
+    recyclerView.setClickItemListenner(clickItemListenner);
+  }
+
   public void setLoadEnable(boolean loadEnable) {
     recyclerView.setLoadMoreEnable(loadEnable);
   }

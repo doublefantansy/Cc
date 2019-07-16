@@ -9,8 +9,8 @@
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
-    <hzkj.cc.ccrecyclerview.CcRrefreshAndLoadMoreRecyclerView
+    <hzkj.cc.ccrecyclerview.RecyclerLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></hzkj.cc.ccrecyclerview.CcRrefreshAndLoadMoreRecyclerView>
+        android:layout_height="match_parent"></hzkj.cc.ccrecyclerview.RecyclerLayout>
 </LinearLayout>

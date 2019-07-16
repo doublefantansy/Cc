@@ -1,28 +1,24 @@
 package hzkj.cc.test;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import hzkj.cc.ccrecyclerview.CcRrefreshAndLoadMoreRecyclerView;
+import hzkj.cc.ccrecyclerview.CcRrefreshAndLoadMoreRecyclerView.LoadMoreListenner;
+import hzkj.cc.ccrecyclerview.CcRrefreshAndLoadMoreRecyclerView.RefreshListenner;
 import hzkj.cc.ccrecyclerview.ClickItemListenner;
+import hzkj.cc.ccrecyclerview.RecyclerLayout;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-  CcRrefreshAndLoadMoreRecyclerView loadLayout;
+  RecyclerLayout loadLayout;
   private List<String> list;
   TestAdapter adapter;
   int i;
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    loadLayout.resumeRefresh();
-  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -38,49 +34,45 @@ public class MainActivity extends AppCompatActivity {
     new Handler().postDelayed(new Runnable() {
       @Override
       public void run() {
+        list.clear();
         for (i = 0; i < 5; i++) {
           list.add("" + i);
         }
         loadLayout.refreshComplete(true);
       }
-    }, 0);
+    }, 1000);
     adapter = new TestAdapter(this, list);
     loadLayout = findViewById(R.id.layout);
     loadLayout.init(adapter);
-    loadLayout.setClickItemListenner(new ClickItemListenner() {
-      @Override
-      public void click(int position) {
-        startActivity(new Intent(MainActivity.this, Main2Activity.class));
-      }
-    });
-    loadLayout.setRefreshListenner(new CcRrefreshAndLoadMoreRecyclerView.RefreshListenner() {
+    loadLayout.setRefreshListenner(new RefreshListenner() {
       @Override
       public void refresh() {
         new Handler().postDelayed(new Runnable() {
           @Override
           public void run() {
             list.clear();
-            for (i = 0; i < 2; i++) {
+            for (i = 0; i < 5; i++) {
               list.add("" + i);
             }
-            loadLayout.refreshComplete(false);
+            loadLayout.refreshComplete(true);
           }
         }, 1000);
       }
     });
-    loadLayout.setLoadMoreListenner(new CcRrefreshAndLoadMoreRecyclerView.LoadMoreListenner() {
+    loadLayout.setClickItemListenner(new ClickItemListenner() {
+      @Override
+      public void click(int position) {
+        Log.d("ccc", position + "");
+      }
+    });
+    loadLayout.setLoadMoreListenner(new LoadMoreListenner() {
       @Override
       public void loadMore() {
         new Handler().postDelayed(new Runnable() {
           @Override
           public void run() {
-            if (i > 15) {
-              loadLayout.loadComplete(true, true);
-            } else {
-//                            i++;
-//                            list.add(i + "");
-              loadLayout.loadComplete(true, false);
-            }
+            list.add("" + i);
+            loadLayout.loadComplete(true, false);
           }
         }, 1000);
       }
