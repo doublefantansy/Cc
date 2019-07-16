@@ -201,7 +201,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   }
 
   public void resumeShowHeader() {
-//    adapter.notifyDataSetChanged();
+    adapter.notifyDataSetChanged();
     headerHolder.itemView.setPadding(headerHolder.itemView.getPaddingLeft(), 0,
         headerHolder.itemView.getPaddingRight(), headerHolder.itemView.getPaddingBottom());
     headerHolder.loading.setVisibility(View.VISIBLE);
@@ -223,14 +223,10 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
       text = itemView.findViewById(R.id.pullToRefreshText);
       itemView.measure(0, 0);
       headerHeight = itemView.getMeasuredHeight();
-      loading.setVisibility(View.VISIBLE);
-      text.setTextColor(context.getResources()
-          .getColor(R.color.myGray));
-      text.setText("正在刷新中");
 //            RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) itemView.getLayoutParams();
 //            layoutParams.topMargin = -headerHeight;
-//      itemView.setPadding(itemView.getPaddingLeft(), -headerHeight,
-//          itemView.getPaddingRight(), itemView.getPaddingBottom());
+      itemView.setPadding(itemView.getPaddingLeft(), -headerHeight,
+          itemView.getPaddingRight(), itemView.getPaddingBottom());
       Log.d("ccnb1111", itemView.getPaddingTop() + "");
 //            itemView.invalidate();
 //            itemView.setLayoutParams(layoutParams);

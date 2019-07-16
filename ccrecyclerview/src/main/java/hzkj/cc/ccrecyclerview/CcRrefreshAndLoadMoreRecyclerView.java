@@ -34,6 +34,7 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
   private float upY;
   float temp;
   ClickItemListenner listenner;
+  private boolean first = true;
   private boolean isMove;
 
   public void setClickItemListenner(ClickItemListenner listenner) {
@@ -122,13 +123,19 @@ public class CcRrefreshAndLoadMoreRecyclerView extends RecyclerView {
 
   public void refreshComplete(boolean isSuccess) {
     isRefresh = false;
+//    smoothScrollToPosition(0);
     if (isSuccess) {
       loadMoreEnable = true;
       if (adapter.footholder != null) {
         adapter.showFooter(1);
       }
-      adapter.notifyDataSetChanged();
-      adapter.showHeader(false, isSuccess);
+       if (first) {
+          first = false;
+          update();
+        } else {
+        adapter.notifyDataSetChanged();
+        adapter.showHeader(false, isSuccess);
+      }
     } else {
       adapter.showHeader(false, isSuccess);
     }
