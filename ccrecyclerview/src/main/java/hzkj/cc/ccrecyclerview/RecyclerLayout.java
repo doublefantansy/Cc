@@ -69,8 +69,12 @@ public class RecyclerLayout extends LinearLayout {
     addView(view);
   }
 
-  public void loadComplete(boolean isSuccess, boolean isEmpty) {
-    recyclerView.loadComplete(isEmpty, isSuccess);
+  public void loadComplete(boolean isSuccess) {
+    if (adapter.getItemCount() == 0) {
+      recyclerView.loadComplete(true, isSuccess);
+    } else {
+      recyclerView.loadComplete(false, isSuccess);
+    }
   }
 
   public void refreshComplete(boolean isSuccess) {

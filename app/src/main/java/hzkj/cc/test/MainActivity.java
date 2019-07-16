@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
           @Override
           public void run() {
             list.add("" + i);
-            loadLayout.loadComplete(true, false);
+            loadLayout.loadComplete(true);
           }
         }, 1000);
       }
