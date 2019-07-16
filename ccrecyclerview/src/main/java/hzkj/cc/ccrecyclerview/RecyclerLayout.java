@@ -90,6 +90,7 @@ public class RecyclerLayout extends LinearLayout {
   public void onResume() {
     if (adapter.getItemCount() == 0) {
       stateFulLayout.showState(StateFulLayout.LOADING);
+      stateLayoutRefreshListenner.refresh();
     } else {
       recyclerView.resumeRefresh();
     }
