@@ -71,8 +71,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
           @Override
           public void run() {
-            list.add("" + i);
-            loadLayout.loadComplete(true);
+            loadLayout.loadComplete(true, true);
           }
         }, 1000);
       }
