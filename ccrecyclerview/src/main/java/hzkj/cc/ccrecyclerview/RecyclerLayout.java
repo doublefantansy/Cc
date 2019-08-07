@@ -50,7 +50,7 @@ public class RecyclerLayout extends LinearLayout {
     super(context, attrs);
   }
 
-  public void init(BaseAdapter adapter) {
+  public void init(BaseAdapter adapter, boolean loadingAtFirst) {
     View view = LayoutInflater.from(getContext()).inflate(R.layout.recycler_layout, this, false);
     stateFulLayout = view.findViewById(R.id.stateLayout);
     recyclerView = view.findViewById(R.id.recyclerView);
@@ -65,8 +65,14 @@ public class RecyclerLayout extends LinearLayout {
     }, recyclerView);
     this.adapter = adapter;
     recyclerView.init(this.adapter);
-    stateFulLayout.showState(StateFulLayout.LOADING);
+    if (loadingAtFirst) {
+      stateFulLayout.showState(StateFulLayout.LOADING);
+    }
     addView(view);
+  }
+
+  public void showLoading() {
+    stateFulLayout.showState(StateFulLayout.LOADING);
   }
 
   public void loadComplete(boolean isEmpty, boolean isSuccess) {
@@ -99,7 +105,6 @@ public class RecyclerLayout extends LinearLayout {
       recyclerView.resumeRefresh();
     }
   }
-
 
   public interface StateLayoutRefreshListenner {
 
